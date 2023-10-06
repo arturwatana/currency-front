@@ -30,13 +30,15 @@ export default function Form({
       {nameOfInputs.map((name, index) => {
         return (
           <>
-            <label className="w-full text-center">{name}</label>
+            <label className="w-full text-center" key={`label${index}`}>
+              {name}
+            </label>
             <input
               type={typeOfInputs[index]}
               className="rounded-[1em] p-1"
               name={name}
+              key={`input${index}`}
               onChange={(e) => {
-                console.log(e.target.value);
                 switch (name) {
                   case "Usuário":
                     updateFormProps({
@@ -67,10 +69,11 @@ export default function Form({
           type="button"
           onClick={actionButton}
           className="border-[1px] rounded-[1em] px-3 py-1 hover:bg-black hover:transition-colors"
+          key={"btn1"}
         >
           {formAction}
         </button>
-        <button className="" type="button">
+        <button className="" type="button" key="btn2">
           Cancelar
         </button>
       </div>

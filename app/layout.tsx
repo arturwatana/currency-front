@@ -1,44 +1,27 @@
-"use client";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import NavBar from "./components/navbar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createContext, useState } from "react";
+import { GlobalContextProvider } from "./Context/global.context";
+import { Providers } from "./GlobalRedux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
-
-type AppContext = {
-  userIsLogged: boolean;
-  setUserIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export const CreatedContext = createContext<AppContext>({
-  userIsLogged: false,
-  setUserIsLogged: () => {},
-});
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [userIsLogged, setUserIsLogged] = useState<boolean>(false);
-
-  const contextValues = {
-    userIsLogged,
-    setUserIsLogged,
-  };
-
   return (
-    <CreatedContext.Provider value={contextValues}>
-      <html lang="en">
-        <body className={inter.className}>
+    <html lang="en">
+      <body className={inter.className}>
+        <Providers>
           <NavBar />
           <ToastContainer />
           {children}
-        </body>
-      </html>
-    </CreatedContext.Provider>
+        </Providers>
+      </body>
+    </html>
   );
 }

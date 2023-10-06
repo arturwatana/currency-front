@@ -1,11 +1,11 @@
 "use client";
 import Form from "../components/form";
-import { CreatedContext } from "@/app/layout";
 import { useContext, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
+import { useGlobalContext } from "../Context/global.context";
 
 type LoginRequestProps = {
   username: string;
@@ -13,7 +13,7 @@ type LoginRequestProps = {
 };
 
 export default function LoginPage() {
-  const { setUserIsLogged } = useContext(CreatedContext);
+  const { setUserIsLogged } = useGlobalContext();
   const [formInputs, setFormInputs] = useState<LoginRequestProps>({
     username: "",
     password: "",
@@ -37,9 +37,9 @@ export default function LoginPage() {
           },
         },
       });
-      console.log(result);
       localStorage.setItem("user_token", result.data.login.token);
       toast("Logado com sucesso");
+      setUserIsLogged(true);
       redirect("/");
     } catch (err: any) {
       toast(err.message);

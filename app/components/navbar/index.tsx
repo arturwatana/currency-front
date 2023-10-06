@@ -1,14 +1,34 @@
-import { CreatedContext } from "@/app/layout";
-import { useContext } from "react";
+"use client";
+import { useGlobalContext } from "@/app/Context/global.context";
+import { useEffect, useState } from "react";
 
 export default function NavBar() {
-  const { userIsLogged } = useContext(CreatedContext);
+  const { userIsLogged } = useGlobalContext();
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user_token");
+    if (!token) {
+      return;
+    }
+    setUserIsLoggedIn(true);
+  }, []);
+
+  function removeToken() {
+    localStorage.removeItem("user_token");
+  }
+
   return (
     <nav className="absolute w-[80%] flex justify-end mt-[3em] ">
       <ul className="flex gap-5 text-white">
         <a href="/">Home</a>
-        {userIsLogged ? (
-          <a href="/searches"> Minhas pesquisas</a>
+        {userIsLoggedIn ? (
+          <>
+            <a href="/searches"> Minhas pesquisas</a>
+            <a href="" onClick={removeToken}>
+              Logout
+            </a>
+          </>
         ) : (
           <>
             <a href="/login">Login</a>
