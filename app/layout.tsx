@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import NavBar from "./components/navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GlobalContextProvider } from "./Context/global.context";
 import { Providers } from "./GlobalRedux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${inter.className}  gap-5 bg-primaryGreen py-[4em] flex flex-col items-center`}
+      >
         <Providers>
           <NavBar />
           <ToastContainer />

@@ -19,7 +19,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="absolute w-[80%] flex justify-end mt-[3em] ">
+    <nav className="relative w-[70%] flex justify-end text-lg">
       <ul className="flex gap-5 text-white">
         <a href="/">Home</a>
         {userIsLoggedIn ? (
