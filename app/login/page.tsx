@@ -4,8 +4,8 @@ import { useContext, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
 import { useGlobalContext } from "../Context/global.context";
+import { useRouter } from "next/navigation";
 
 type LoginRequestProps = {
   username: string;
@@ -18,6 +18,7 @@ export default function LoginPage() {
     username: "",
     password: "",
   });
+  const router = useRouter();
 
   async function sendLoginRequest() {
     try {
@@ -40,7 +41,7 @@ export default function LoginPage() {
       localStorage.setItem("user_token", result.data.login.token);
       toast("Logado com sucesso");
       setUserIsLogged(true);
-      redirect("/");
+      router.push("/");
     } catch (err: any) {
       toast(err.message);
       return;

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type RegisterRequestProps = {
   username: string;
@@ -17,6 +18,7 @@ export default function RegisterPage() {
     password: "",
     email: "",
   });
+  const router = useRouter();
 
   async function sendRegisterRequest() {
     try {
@@ -38,6 +40,7 @@ export default function RegisterPage() {
       });
 
       toast("Usuário cadastrado com sucesso");
+      router.push("/login");
     } catch (err: any) {
       toast(err.message);
       return;

@@ -16,7 +16,7 @@ export default function Search({
       key={index}
       className=" bg-slate-200 shadow-md shadow-slate-900  text-[#333333] p-2 rounded-md hover:m-3 hover:scale-125 transition-all "
     >
-      <h1 className="font-bold">Consulta nº: {index}</h1>
+      <h1 className="font-bold">Consulta nº: {index + 1}</h1>
       <h1 className="font-bold">Nome: {name}</h1>
       <p className=" font-bold">
         Valor mais alto: R${" "}

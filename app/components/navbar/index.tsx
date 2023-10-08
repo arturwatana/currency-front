@@ -12,7 +12,7 @@ export default function NavBar() {
       return;
     }
     setUserIsLoggedIn(true);
-  }, []);
+  });
 
   function removeToken() {
     localStorage.removeItem("user_token");

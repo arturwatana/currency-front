@@ -9,6 +9,7 @@ import Paginate from "../components/paginate";
 
 export default function MySearches() {
   const [userSearches, setUserSearches] = useState<CurrencyType[]>();
+  const [filterByName, setFilterByName] = useState<string>("Todas");
 
   async function getUserSearches() {
     const token = localStorage.getItem("user_token");
@@ -20,6 +21,7 @@ export default function MySearches() {
         query: gql`
           query searches {
             searches {
+              code
               name
               high
               low
@@ -28,12 +30,31 @@ export default function MySearches() {
           }
         `,
       });
-      console.log(result);
       setUserSearches(result.data.searches);
       toast("Últimas pesquisas carregadas com sucesso!");
     } catch (err: any) {
       toast.error(err.networkError.result.errors[0].message);
     }
+  }
+
+  function filterCategories() {
+    if (userSearches) {
+      let categories = userSearches;
+      if (filterByName === "Todas") {
+        return categories;
+      }
+
+      return userSearches?.filter((search) => search.code === filterByName);
+    }
+    return [];
+  }
+
+  function getCategories() {
+    const categories = userSearches?.map((search) => {
+      return search.code;
+    });
+    const uniqueCategories = [...new Set(categories)];
+    return uniqueCategories.map((category) => <option>{category}</option>);
   }
 
   useEffect(() => {
@@ -42,22 +63,29 @@ export default function MySearches() {
 
   return (
     <main className="w-full  bg-primaryGreen flex items-center justify-center ">
-      <div className="flex  w-[50%] justify-center items-center flex-wrap gap-2">
-        {/* {userSearches
-          ? userSearches.map((search: CurrencyType, index) => {
-              return (
-                <Search
-                  code={search.code}
-                  create_date={search.create_date}
-                  high={search.high}
-                  low={search.low}
-                  name={search.name}
-                  index={index}
-                />
-              );
-            })
-          : null} */}
-        {userSearches ? <Paginate elements={userSearches} /> : null}
+      <div className="flex flex-col  w-[50%] justify-between items-center flex-wrap gap-5">
+        <div>
+          <h3 className="font-bold text-white">Buscar por moeda:</h3>
+          <select
+            className="w-full text-center"
+            onChange={(e) => {
+              setFilterByName(e.target.value);
+            }}
+          >
+            <option>Todas</option>
+            {userSearches ? getCategories() : null}
+          </select>
+        </div>
+        <div>
+          {userSearches ? (
+            <Paginate
+              elements={filterCategories()}
+              filterByName={filterByName}
+            />
+          ) : (
+            <p className="text-white font-bold text-lg">Loading</p>
+          )}
+        </div>
       </div>
     </main>
   );
