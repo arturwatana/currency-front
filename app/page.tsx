@@ -66,7 +66,7 @@ export default function Home() {
   }
 
   return (
-    <main className="w-full h-full flex justify-center items-center flex-col gap-16 bg-primaryGreen text-white">
+    <main className="w-full h-full min-h-[70vh] flex justify-center items-center  flex-col gap-16 bg-primaryGreen text-white">
       <div className="flex flex-col gap-5 ">
         <h1 className="w-full text-center text-[22px] font-bold ">
           Currency queries:
@@ -76,9 +76,10 @@ export default function Home() {
             type="text"
             className="border-[1px] p-1 text-black rounded-md"
             onChange={(e: any) => setCurrency(e.target.value)}
+            placeholder="Ex: USD"
           />
           <button
-            className="border-[1px] rounded-md p-1 "
+            className="border-[1px] rounded-md p-1 hover:bg-white hover:text-black hover:transition-colors"
             onClick={sendCurrencyRequest}
           >
             Pesquisar

@@ -5,6 +5,7 @@ import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import { CurrencyType } from "../currency/model/currency.type";
 import Search from "../components/Search";
+import Paginate from "../components/paginate";
 
 export default function MySearches() {
   const [userSearches, setUserSearches] = useState<CurrencyType[]>();
@@ -41,8 +42,8 @@ export default function MySearches() {
 
   return (
     <main className="w-full  bg-primaryGreen flex items-center justify-center ">
-      <div className="flex  w-[30%] justify-center items-center flex-wrap gap-2">
-        {userSearches
+      <div className="flex  w-[50%] justify-center items-center flex-wrap gap-2">
+        {/* {userSearches
           ? userSearches.map((search: CurrencyType, index) => {
               return (
                 <Search
@@ -55,7 +56,8 @@ export default function MySearches() {
                 />
               );
             })
-          : null}
+          : null} */}
+        {userSearches ? <Paginate elements={userSearches} /> : null}
       </div>
     </main>
   );

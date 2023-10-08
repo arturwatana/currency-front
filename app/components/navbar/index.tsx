@@ -19,7 +19,8 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="relative w-[70%] flex justify-end text-lg">
+    <nav className="relative w-[70%] flex justify-between text-lg ">
+      <p className="font-bold text-[35px] text-white">CoinPulse</p>
       <ul className="flex gap-5 text-white">
         <a href="/">Home</a>
         {userIsLoggedIn ? (
