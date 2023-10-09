@@ -1,19 +1,29 @@
 import { CurrencyType } from "@/app/currency/model/currency.type";
 import Search from "../Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { BiArrowToLeft, BiArrowToRight } from "react-icons/bi";
 
 type PaginateProps = {
   elements: CurrencyType[];
   filterByName: string;
 };
 
-export default function Paginate({ elements, filterByName }: PaginateProps) {
+export default function Paginate({ elements }: PaginateProps) {
   const qtdPerPage = 10;
   const [paginateProps, setPaginateProps] = useState({
     page: 1,
     qtdPerPage: qtdPerPage,
     totalPages: Math.ceil(elements.length / qtdPerPage),
   });
+
+  useEffect(() => {
+    setPaginateProps({
+      ...paginateProps,
+      page: 1,
+      totalPages: Math.ceil(elements.length / qtdPerPage),
+    });
+  }, [elements]);
 
   function renderPages() {
     const numberOfPages = [];
@@ -59,7 +69,7 @@ export default function Paginate({ elements, filterByName }: PaginateProps) {
               });
             }}
           >
-            Primeira
+            <BiArrowToLeft className="text-[30px]" />
           </p>
           <p
             onClick={() => {
@@ -72,7 +82,7 @@ export default function Paginate({ elements, filterByName }: PaginateProps) {
               });
             }}
           >
-            Voltar
+            <AiOutlineArrowLeft className="text-[30px]" />
           </p>
         </div>
         <div className="flex gap-2">
@@ -87,7 +97,7 @@ export default function Paginate({ elements, filterByName }: PaginateProps) {
                 }
                 className={`pointer ${
                   paginateProps.page === page ? "font-bold" : null
-                }`}
+                } text-[20px]`}
               >
                 {page}
               </p>
@@ -106,7 +116,7 @@ export default function Paginate({ elements, filterByName }: PaginateProps) {
               });
             }}
           >
-            Próxima
+            <AiOutlineArrowRight className="text-[30px]" />
           </p>
           <p
             onClick={() => {
@@ -116,7 +126,7 @@ export default function Paginate({ elements, filterByName }: PaginateProps) {
               });
             }}
           >
-            Última
+            <BiArrowToRight className="text-[30px]" />
           </p>
         </div>
       </div>

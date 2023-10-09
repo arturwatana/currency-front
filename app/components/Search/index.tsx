@@ -11,6 +11,12 @@ export default function Search({
   name,
   index,
 }: SearchComponentProps) {
+  function formatCoin(coin: number) {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(coin);
+  }
   return (
     <div
       key={index}
@@ -19,11 +25,12 @@ export default function Search({
       <h1 className="font-bold">Consulta nº: {index + 1}</h1>
       <h1 className="font-bold">Nome: {name}</h1>
       <p className=" font-bold">
-        Valor mais alto: R${" "}
-        <span className="text-[#4CBB17] font-bold">{Math.ceil(+high)}</span>
+        Valor mais alto:
+        <span className="text-[#4CBB17] font-bold">{formatCoin(+high)}</span>
       </p>
       <p className=" font-bold">
-        Valor mais baixo: R$ <span className="text-[#FF4500]">{low}</span>
+        Valor mais baixo:
+        <span className="text-[#FF4500]">{formatCoin(+low)}</span>
       </p>
       <p className=" font-bold">
         Data da consulta: <span className="text-[#666666] ">{create_date}</span>{" "}
