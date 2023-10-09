@@ -43,6 +43,10 @@ export default function LoginPage() {
       setUserIsLogged(true);
       router.push("/");
     } catch (err: any) {
+      if (err.message === "Failed to fetch") {
+        toast("Ops, isso não foi possivel no momento");
+        return;
+      }
       toast(err.message);
       return;
     }

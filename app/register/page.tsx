@@ -42,6 +42,10 @@ export default function RegisterPage() {
       toast("Usuário cadastrado com sucesso");
       router.push("/login");
     } catch (err: any) {
+      if (err.message === "Failed to fetch") {
+        toast("Ops, isso não foi possivel no momento");
+        return;
+      }
       toast(err.message);
       return;
     }

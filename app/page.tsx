@@ -57,6 +57,10 @@ export default function Home() {
       setResult(result.data.createCurrency);
       toast.success("Currency puxada com sucesso");
     } catch (err: any) {
+      if (err.message === "Failed to fetch") {
+        toast("Ops, isso não foi possivel no momento");
+        return;
+      }
       if (err.message.startsWith("moeda")) {
         toast(err.message);
         return;

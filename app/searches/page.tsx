@@ -33,6 +33,10 @@ export default function MySearches() {
       setUserSearches(result.data.searches);
       toast("Últimas pesquisas carregadas com sucesso!");
     } catch (err: any) {
+      if (err.message === "Failed to fetch") {
+        toast("Ops, isso não foi possivel no momento");
+        return;
+      }
       toast.error(err.networkError.result.errors[0].message);
     }
   }
