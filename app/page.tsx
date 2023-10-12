@@ -10,7 +10,7 @@ export default function Home() {
   const [currency, setCurrency] = useState<string>("");
   const [result, setResult] = useState<CurrencyType>();
   const [lastSearchByName, setLastSearchByName] = useState<CurrencyType>();
-
+  console.log("test")
   async function getLastSearchByName(name: string) {
     try {
       const result = await apolloClient.query({
