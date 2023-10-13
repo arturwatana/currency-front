@@ -1,16 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { apolloClient } from "./utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import Search from "./components/Search";
-import { CurrencyType } from "./currency/model/currency.type";
+import { CurrencyTypeRes } from "./currency/model/currency.type";
 
 export default function Home() {
   const [currency, setCurrency] = useState<string>("");
-  const [result, setResult] = useState<CurrencyType>();
-  const [lastSearchByName, setLastSearchByName] = useState<CurrencyType>();
-  console.log("test")
+  const [result, setResult] = useState<CurrencyTypeRes>();
+  const [lastSearchByName, setLastSearchByName] = useState<CurrencyTypeRes>();
   async function getLastSearchByName(name: string) {
     try {
       const result = await apolloClient.query({
@@ -30,6 +29,7 @@ export default function Home() {
       });
       setLastSearchByName(result.data.getLastSearchByName);
     } catch (err: any) {
+      console.log(err)
       console.log(err.networkError.result.errors[0].message);
     }
   }
@@ -94,6 +94,7 @@ export default function Home() {
       <div>
         {result ? (
           <Search
+          id={result.id}
             code={result.code}
             create_date={result.create_date}
             high={result.high}

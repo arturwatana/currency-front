@@ -52,7 +52,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="w-full h-[100vh] bg-primaryGreen flex items-center justify-center ">
+    <main className="w-full h-full min-h-[70vh] bg-primaryGreen flex items-center justify-center ">
       <Form
         nameOfInputs={["Usuário", "Email", "Senha"]}
         typeOfInputs={["text", "text", "password"]}

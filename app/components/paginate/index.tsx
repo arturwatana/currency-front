@@ -1,11 +1,11 @@
-import { CurrencyType } from "@/app/currency/model/currency.type";
+import { CurrencyTypeRes } from "@/app/currency/model/currency.type";
 import Search from "../Search";
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiArrowToLeft, BiArrowToRight } from "react-icons/bi";
 
 type PaginateProps = {
-  elements: CurrencyType[];
+  elements: CurrencyTypeRes[];
   filterByName: string;
 };
 
@@ -33,7 +33,7 @@ export default function Paginate({ elements }: PaginateProps) {
     return numberOfPages;
   }
 
-  function renderFilteredCurrencies(elements: CurrencyType[]) {
+  function renderFilteredCurrencies(elements: CurrencyTypeRes[]) {
     const lastElement = paginateProps.page * paginateProps.qtdPerPage;
     const firstElement =
       paginateProps.page * paginateProps.qtdPerPage - qtdPerPage;
@@ -42,6 +42,7 @@ export default function Paginate({ elements }: PaginateProps) {
       if (index >= firstElement && index + 1 <= lastElement) {
         return (
           <Search
+          id={element.id}
             code={element.code}
             create_date={element.create_date}
             high={element.high}

@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
-import { CurrencyType } from "../currency/model/currency.type";
+import { CurrencyType, CurrencyTypeRes } from "../currency/model/currency.type";
 import Search from "../components/Search";
 import Paginate from "../components/paginate";
 
 export default function MySearches() {
-  const [userSearches, setUserSearches] = useState<CurrencyType[]>();
+  const [userSearches, setUserSearches] = useState<CurrencyTypeRes[]>();
   const [filterByName, setFilterByName] = useState<string>("Todas");
 
   async function getUserSearches() {
@@ -26,10 +26,12 @@ export default function MySearches() {
               high
               low
               create_date
+              id
             }
           }
         `,
       });
+      console.log(result.data.searches)
       setUserSearches(result.data.searches);
       toast("Últimas pesquisas carregadas com sucesso!");
     } catch (err: any) {
