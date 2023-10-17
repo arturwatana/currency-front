@@ -27,11 +27,11 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
       page: 1,
       totalPages: Math.ceil(elements.length / qtdPerPage),
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elements]);
 
   useEffect(() => {
       if(deletedSearchId.length > 1){
-
        const newElements = elementsToShow.filter(element => {
           if(element.id === deletedSearchId){
             return 
@@ -41,6 +41,7 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
         setElementsToShow(newElements)
         console.log(newElements)
       }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deletedSearchId])
 
   function renderPages() {
@@ -75,6 +76,7 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
                 low={element.low}
                 name={element.name}
                 index={index}
+                key={ `element${index}`}
               />
             );
           }
@@ -93,6 +95,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
             low={element.low}
             name={element.name}
             index={index}
+            key={ `element${index}`}
+
           />
         );
       }
@@ -131,7 +135,7 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
           </p>
         </div>
         <div className="flex gap-2">
-          {renderPages().map((page) => {
+          {renderPages().map((page, index) => {
             return (
               <p
                 onClick={() =>
@@ -143,6 +147,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
                 className={`pointer ${
                   paginateProps.page === page ? "font-bold" : null
                 } text-[20px]`}
+                key={ `p${index}`}
+
               >
                 {page}
               </p>

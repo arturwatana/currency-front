@@ -29,7 +29,7 @@ export default function Form({
       <h1 className="text-[22px] font-bold text-center">{formAction}</h1>
       {nameOfInputs.map((name, index) => {
         return (
-          <>
+          <div key={'keyForm' + index}>
             <label className="w-full text-center" key={`label${index}`}>
               {name}
             </label>
@@ -61,7 +61,7 @@ export default function Form({
                 }
               }}
             />
-          </>
+          </div>
         );
       })}
       <div className="w-full flex justify-around">

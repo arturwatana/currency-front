@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import Paginate from "../components/paginate";
 
 export default function MySearches() {
   const [userSearches, setUserSearches] = useState<CurrencyTypeRes[]>();
+  
   const [filterByName, setFilterByName] = useState<string>("Todas");
 
   async function getUserSearches() {
@@ -64,13 +65,15 @@ export default function MySearches() {
   }
 
   function renderCategories(categories: string[]){
-    return categories.map((category) => <option>{category}</option>);
+    return categories.map((category, index) => <option key={`key${index}`} >{category}</option>);
 
   }
 
   useEffect(() => {
-    getUserSearches();
-  }, []);
+    getUserSearches()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, 
+  []);
 
   return (
     <main className="w-full  bg-primaryGreen flex items-center justify-center ">

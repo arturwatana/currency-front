@@ -35,7 +35,7 @@ export const GlobalContextProvider = ({ children }: {children: React.ReactNode})
           return;
         }
         setIsLoggedIn(true)
-      },[loggedIn]);
+      }, [loggedIn]);
     
     return (
         <GlobalContext.Provider value={contextValues}>
