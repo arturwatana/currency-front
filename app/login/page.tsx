@@ -4,8 +4,8 @@ import { useContext, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
-import { useGlobalContext } from "../Context/global.context";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "../context/api/store";
 
 type LoginRequestProps = {
   username: string;
@@ -13,12 +13,12 @@ type LoginRequestProps = {
 };
 
 export default function LoginPage() {
-  const { setUserIsLogged } = useGlobalContext();
   const [formInputs, setFormInputs] = useState<LoginRequestProps>({
     username: "",
     password: "",
   });
   const router = useRouter();
+  const { loggedIn, setIsLoggedIn} = useGlobalContext();
 
   async function sendLoginRequest() {
     try {
@@ -40,7 +40,7 @@ export default function LoginPage() {
       });
       localStorage.setItem("user_token", result.data.login.token);
       toast("Logado com sucesso");
-      setUserIsLogged(true);
+      setIsLoggedIn(true)
       router.push("/");
     } catch (err: any) {
       if (err.message === "Failed to fetch") {

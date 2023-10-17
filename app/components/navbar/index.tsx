@@ -1,29 +1,24 @@
 "use client";
-import { useGlobalContext } from "@/app/Context/global.context";
-import { useEffect, useState } from "react";
+import { useGlobalContext } from "@/app/context/api/store";
+import { useRouter } from "next/navigation";
 
 export default function NavBar() {
-  const { userIsLogged } = useGlobalContext();
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("user_token");
-    if (!token) {
-      return;
-    }
-    setUserIsLoggedIn(true);
-  });
+  const { loggedIn} = useGlobalContext();
+  const router = useRouter();
 
   function removeToken() {
     localStorage.removeItem("user_token");
+    router.push("/login");
   }
+
 
   return (
     <nav className="relative w-[70%] flex justify-between text-lg ">
       <p className="font-bold text-[35px] text-white">CoinPulse</p>
       <ul className="flex gap-5 text-white">
         <a href="/">Home</a>
-        {userIsLoggedIn ? (
+        {loggedIn ? (
           <>
             <a href="/searches"> Minhas pesquisas</a>
             <a href="" onClick={removeToken}>

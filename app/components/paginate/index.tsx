@@ -7,15 +7,19 @@ import { BiArrowToLeft, BiArrowToRight } from "react-icons/bi";
 type PaginateProps = {
   elements: CurrencyTypeRes[];
   filterByName: string;
+  categories: string[]
 };
 
-export default function Paginate({ elements }: PaginateProps) {
-  const qtdPerPage = 10;
+export default function Paginate({ elements, filterByName, categories }: PaginateProps) {
+  const qtdPerPage = 25;
   const [paginateProps, setPaginateProps] = useState({
     page: 1,
     qtdPerPage: qtdPerPage,
     totalPages: Math.ceil(elements.length / qtdPerPage),
   });
+  const [deletedSearchId, setDeleteSearchId] = useState<string>("")
+  const [elementsToShow, setElementsToShow] = useState(elements)
+  console.log(Math.ceil(elements.length / qtdPerPage))
 
   useEffect(() => {
     setPaginateProps({
@@ -25,23 +29,63 @@ export default function Paginate({ elements }: PaginateProps) {
     });
   }, [elements]);
 
+  useEffect(() => {
+      if(deletedSearchId.length > 1){
+
+       const newElements = elementsToShow.filter(element => {
+          if(element.id === deletedSearchId){
+            return 
+          }
+          return element
+        })
+        setElementsToShow(newElements)
+        console.log(newElements)
+      }
+  }, [deletedSearchId])
+
   function renderPages() {
     const numberOfPages = [];
-    for (let i = 1; i <= Math.ceil(elements.length / 9); i++) {
+    for (let i = 1; i <= paginateProps.totalPages ; i++) {
       numberOfPages.push(i);
     }
     return numberOfPages;
   }
 
-  function renderFilteredCurrencies(elements: CurrencyTypeRes[]) {
+  function renderFilteredCurrencies(elementsToShow: CurrencyTypeRes[]) {
     const lastElement = paginateProps.page * paginateProps.qtdPerPage;
     const firstElement =
       paginateProps.page * paginateProps.qtdPerPage - qtdPerPage;
 
-    return elements.map((element, index) => {
+      if(filterByName != "Todas"){
+        const filteredElements = elementsToShow.filter(element => {
+          if(element.code === filterByName){
+            return element
+          }
+          return 
+          })
+        return filteredElements.map((element, index) => {
+          if (index >= firstElement && index + 1 <= lastElement) {
+            return (
+              <Search
+              setDeleteSearchId={setDeleteSearchId}
+              id={element.id}
+                code={element.code}
+                create_date={element.create_date}
+                high={element.high}
+                low={element.low}
+                name={element.name}
+                index={index}
+              />
+            );
+          }
+        });
+      }
+
+    return elementsToShow.map((element, index) => {
       if (index >= firstElement && index + 1 <= lastElement) {
         return (
           <Search
+          setDeleteSearchId={setDeleteSearchId}
           id={element.id}
             code={element.code}
             create_date={element.create_date}
@@ -58,7 +102,7 @@ export default function Paginate({ elements }: PaginateProps) {
   return (
     <div className="w-full flex flex-col gap-5 ">
       <div className="flex flex-wrap  gap-5 items-center justify-center">
-        {renderFilteredCurrencies(elements)}
+        {renderFilteredCurrencies(elementsToShow)}
       </div>
       <div className="flex  justify-around  text-white">
         <div className="flex gap-2">

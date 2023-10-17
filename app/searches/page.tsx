@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -31,9 +31,9 @@ export default function MySearches() {
           }
         `,
       });
-      console.log(result.data.searches)
       setUserSearches(result.data.searches);
       toast("Últimas pesquisas carregadas com sucesso!");
+      return result.data.searches
     } catch (err: any) {
       if (err.message === "Failed to fetch") {
         toast("Ops, isso não foi possivel no momento");
@@ -60,7 +60,12 @@ export default function MySearches() {
       return search.code;
     });
     const uniqueCategories = [...new Set(categories)];
-    return uniqueCategories.map((category) => <option>{category}</option>);
+    return uniqueCategories
+  }
+
+  function renderCategories(categories: string[]){
+    return categories.map((category) => <option>{category}</option>);
+
   }
 
   useEffect(() => {
@@ -69,7 +74,7 @@ export default function MySearches() {
 
   return (
     <main className="w-full  bg-primaryGreen flex items-center justify-center ">
-      <div className="flex flex-col  w-[50%] justify-between items-center flex-wrap gap-5">
+      <div className="flex flex-col  w-[75%] justify-between items-center flex-wrap gap-5">
         <div>
           <h3 className="font-bold text-white">Buscar por moeda:</h3>
           <select
@@ -79,12 +84,13 @@ export default function MySearches() {
             }}
           >
             <option>Todas</option>
-            {userSearches ? getCategories() : null}
+            {userSearches ? renderCategories(getCategories()) : null}
           </select>
         </div>
         <div>
           {userSearches ? (
             <Paginate
+              categories={getCategories()}
               elements={filterCategories()}
               filterByName={filterByName}
             />

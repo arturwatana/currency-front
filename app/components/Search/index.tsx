@@ -2,8 +2,10 @@ import { CurrencyType, CurrencyTypeRes } from "@/app/currency/model/currency.typ
 import { apolloClient } from "@/app/utils/apollo.client";
 import { gql } from "@apollo/client";
 import {BsFillTrash3Fill} from "react-icons/bs"
+import { toast } from "react-toastify";
 type SearchComponentProps = {
   index: number;
+  setDeleteSearchId?: React.Dispatch<React.SetStateAction<string>>
 } & CurrencyTypeRes;
 
 export default function Search({
@@ -12,7 +14,8 @@ export default function Search({
   low,
   name,
   index,
-  id
+  id,
+  setDeleteSearchId
 }: SearchComponentProps) {
   function formatCoin(coin: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -36,6 +39,11 @@ export default function Search({
            currencyId: id
         }
       })
+      toast.success("Search deletada com sucesso")
+      if(setDeleteSearchId){
+        setDeleteSearchId(id)
+      }
+      
     } catch(err: any){
       console.log(err)
     }
@@ -43,7 +51,7 @@ export default function Search({
   return (
     <div
       key={index}
-      className=" bg-slate-200 shadow-md shadow-slate-900  text-[#333333] p-2 rounded-md hover:m-3 hover:scale-125 transition-all "
+      className="w-[22em]  bg-slate-200 shadow-md shadow-slate-900  text-[#333333] p-2 rounded-md hover:m-3 hover:scale-125 transition-all "
     >
       <div className="w-full flex justify-between">
       <h1 className="font-bold">Consulta nº: {index + 1}</h1>

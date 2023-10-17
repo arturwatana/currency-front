@@ -24,7 +24,7 @@ export default function Form({
   return (
     <form
       action=""
-      className="flex flex-col gap-3 border-[1px] rounded-[2em] p-5"
+      className="flex flex-col gap-3 border-[1px] rounded-[2em] p-5 text-white"
     >
       <h1 className="text-[22px] font-bold text-center">{formAction}</h1>
       {nameOfInputs.map((name, index) => {
@@ -35,7 +35,7 @@ export default function Form({
             </label>
             <input
               type={typeOfInputs[index]}
-              className="rounded-[1em] p-1"
+              className="rounded-[1em] p-2 text-black"
               name={name}
               key={`input${index}`}
               onChange={(e) => {
@@ -68,12 +68,12 @@ export default function Form({
         <button
           type="button"
           onClick={actionButton}
-          className="border-[1px] rounded-[1em] px-3 py-1 hover:bg-black hover:transition-colors"
+          className="border-[1px] rounded-[1em] px-4 py-2 hover:bg-black  hover:transition-all"
           key={"btn1"}
         >
           {formAction}
         </button>
-        <button className="" type="button" key="btn2">
+        <button className="border-[1px] rounded-[1em] px-4 py-2  hover:bg-black  hover:transition-all" type="reset" key="btn2">
           Cancelar
         </button>
       </div>
