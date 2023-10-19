@@ -5,7 +5,7 @@ import { setContext } from "@apollo/client/link/context";
 const apolloServerURL = process.env.RENDER_URL
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://currency-graphql.onrender.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
