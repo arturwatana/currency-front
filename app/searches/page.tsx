@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { CurrencyType, CurrencyTypeRes } from "../currency/model/currency.type";
 import Search from "../components/Search";
 import Paginate from "../components/paginate";
+import NavBar from "../components/navbar";
+import { userRepository } from "../repositories";
 
 export default function MySearches() {
   const [userSearches, setUserSearches] = useState<CurrencyTypeRes[]>();
@@ -17,31 +19,12 @@ export default function MySearches() {
     if (!token) {
       return;
     }
-    try {
-      const result = await apolloClient.query({
-        query: gql`
-          query searches {
-            searches {
-              code
-              name
-              high
-              low
-              create_date
-              id
-            }
-          }
-        `,
-      });
-      setUserSearches(result.data.searches);
-      toast("Últimas pesquisas carregadas com sucesso!");
-      return result.data.searches
-    } catch (err: any) {
-      if (err.message === "Failed to fetch") {
-        toast("Ops, isso não foi possivel no momento");
-        return;
-      }
-      toast.error(err.networkError.result.errors[0].message);
+    const getUserSearchesRes = await userRepository.getUserSearches(token)
+    if(typeof getUserSearchesRes === "string"){
+      toast.error(getUserSearchesRes)
+      return
     }
+    setUserSearches(getUserSearchesRes)
   }
 
   function filterCategories() {
@@ -76,7 +59,8 @@ export default function MySearches() {
   []);
 
   return (
-    <main className="w-full  bg-primaryGreen flex items-center justify-center ">
+    <main className="w-full flex-col  bg-primaryGreen flex items-center justify-center ">
+          <NavBar />
       <div className="flex flex-col  w-[75%] justify-between items-center flex-wrap gap-5">
         <div>
           <h3 className="font-bold text-white">Buscar por moeda:</h3>

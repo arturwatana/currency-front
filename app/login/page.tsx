@@ -1,11 +1,16 @@
 "use client";
 import Form from "../components/form";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "../context/api/store";
+import ImgWave from "../components/ImgWave";
+import login from "../../assets/undraw_bitcoin_re_urgq.svg"
+import BackPageBtn from "../components/BackPageBtn";
+import { userRepository } from "../repositories";
+
 
 type LoginRequestProps = {
   username: string;
@@ -21,47 +26,43 @@ export default function LoginPage() {
   const { loggedIn, setIsLoggedIn} = useGlobalContext();
 
   async function sendLoginRequest() {
-    try {
-      const result = await apolloClient.mutate({
-        mutation: gql`
-          mutation login($data: LoginUserDTO) {
-            login(data: $data) {
-              id
-              token
-            }
-          }
-        `,
-        variables: {
-          data: {
-            username: formInputs.username,
-            password: formInputs.password,
-          },
-        },
-      });
-      localStorage.setItem("user_token", result.data.login.token);
-      toast("Logado com sucesso");
-      setIsLoggedIn(true)
-      router.push("/");
-    } catch (err: any) {
-      if (err.message === "Failed to fetch") {
-        toast("Ops, isso não foi possivel no momento");
-        return;
-      }
-      toast(err.message);
-      return;
+    const loginRes = await userRepository.sendLoginRequest(formInputs)
+    if(typeof loginRes === "string"){
+      toast(loginRes)
+      return
     }
+    if(!loginRes.data){
+      return
+    }
+    localStorage.setItem("user_token", loginRes.data.login.token);
+    setIsLoggedIn(true)
+    toast("Logado com sucesso");
+    router.push("/");
   }
 
   return (
-    <main className="w-full h-full min-h-[70vh] bg-primaryGreen flex items-center justify-center ">
+    <main className="w-full h-full min-h-[100vh]  bg-primaryGreen flex items-center justify-center  ">
+      <div className="w-[55%] relative text-white flex flex-col gap-10 items-center border-2 min-h-[100vh] bg-[#222] border-neutral-600 justify-center  ">
+      <BackPageBtn/>
+      <div className="bg-primaryGreen w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10"></div> 
+      <div className="flex flex-col items-center justify-center gap-4 font-bold text-[22px]">
+      <h1 className="text-[35px]">CoinPulse</h1>
+      <h3 className="font-light text-[20px]">Seu aplicativo de consultas</h3>
+      </div>
+      <ImgWave width="55%" img={login}/>
+      </div>
+      <div className="w-[45%] h-full min-h-screen z-20 flex items-center justify-center ">
       <Form
-        nameOfInputs={["Usuário", "Senha"]}
+        nameOfInputs={["Usuário: ", "Senha: "]}
         typeOfInputs={["text", "password"]}
         formAction="Login"
         formInputs={formInputs}
         updateFormProps={setFormInputs}
         actionButton={sendLoginRequest}
+        formSecondAction="Ainda não possui uma conta? Registre-se"
+        formSecondActionURl="/register"
       />
+      </div>
     </main>
   );
 }

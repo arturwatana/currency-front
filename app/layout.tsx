@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import NavBar from "./components/navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthProvider from "./context/AuthProvider";
 import { GlobalContextProvider } from "./context/api/store";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,15 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className}  gap-5 bg-primaryGreen py-[4em] flex flex-col items-center`}
+        className={`bg-primaryGreen flex flex-col`}
       >
-        <AuthProvider>
           <GlobalContextProvider>
-          <NavBar />
           <ToastContainer />
           {children}
           </GlobalContextProvider>
-        </AuthProvider>
       </body>
     </html>
   );

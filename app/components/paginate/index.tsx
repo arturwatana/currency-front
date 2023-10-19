@@ -68,8 +68,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
           if (index >= firstElement && index + 1 <= lastElement) {
             return (
               <Search
-              setDeleteSearchId={setDeleteSearchId}
-              id={element.id}
+                setDeleteSearchId={setDeleteSearchId}
+                id={element.id}
                 code={element.code}
                 create_date={element.create_date}
                 high={element.high}
@@ -87,8 +87,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
       if (index >= firstElement && index + 1 <= lastElement) {
         return (
           <Search
-          setDeleteSearchId={setDeleteSearchId}
-          id={element.id}
+            setDeleteSearchId={setDeleteSearchId}
+            id={element.id}
             code={element.code}
             create_date={element.create_date}
             high={element.high}
