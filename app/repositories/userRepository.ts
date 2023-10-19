@@ -1,4 +1,5 @@
 import { CurrencyType, CurrencyTypeRes } from "../currency/model/currency.type"
+import { Last15DaysFromInterest } from "../interests/interest.interface"
 
 
 export interface LoginPropsReq{
@@ -33,9 +34,14 @@ export interface RegisterPropsRes {
     }
 }
 
+
+
+
+
 export interface IUserRepository {
     sendLoginRequest(data:LoginPropsReq): Promise<LoginPropsRes | string>
     sendRegisterRequest(data:RegisterPropsReq): Promise<RegisterPropsRes | string>
-    getUserSearches(token: string): Promise<CurrencyType[] | string>
+    getUserSearches(): Promise<CurrencyType[] | string>
     sendCurrencyRequest(name: string): Promise<CurrencyTypeRes | string>
+    getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string>
 }

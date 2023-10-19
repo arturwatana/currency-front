@@ -39,7 +39,6 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
           return element
         })
         setElementsToShow(newElements)
-        console.log(newElements)
       }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deletedSearchId])

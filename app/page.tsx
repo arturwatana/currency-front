@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { apolloClient } from "./utils/apollo.client";
 import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
@@ -8,12 +8,15 @@ import { CurrencyTypeRes } from "./currency/model/currency.type";
 import NavBar from "./components/navbar";
 import Waves from "./components/Waves";
 import { userRepository } from "./repositories";
-import CurrencyTracking from "./components/tracking/CurrencyTracking";
+import InterestTracking from "./components/tracking/InterestTracking";
+import { Last15DaysFromInterest } from "./interests/interest.interface";
 
 export default function Home() {
   const [currency, setCurrency] = useState<string>("");
   const [result, setResult] = useState<CurrencyTypeRes>();
   const [lastSearchByName, setLastSearchByName] = useState<CurrencyTypeRes>();
+  const [last15DaysFromInterests, setLast15DaysFromInterests] = useState<Last15DaysFromInterest[]>([])
+
   async function getLastSearchByName(name: string) {
     try {
       const result = await apolloClient.query({
@@ -45,8 +48,23 @@ export default function Home() {
     return
   }
   setResult(res)
-  toast.success("Currency puxada com sucesso");
+  getLast15DaysInterests()
+  toast.success("Interesse adicionado com sucesso");
   }
+
+  async function getLast15DaysInterests(){
+    const res = await userRepository.getLast15DaysFromInterests()
+    if(typeof res === "string"){
+     toast(res)
+     return
+   }
+   console.log(res)
+   setLast15DaysFromInterests(res)
+  }
+
+  useEffect(() => {
+    getLast15DaysInterests()
+  }, [])
 
   return (
     <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-primaryGreen text-white overflow-x-hidden">
@@ -61,7 +79,8 @@ export default function Home() {
           <input
             type="text"
             className="border-[1px] p-1 text-black rounded-md"
-            onChange={(e: any) => setCurrency(e.target.value)}
+            onChange={(e: any) => {
+              setCurrency(e.target.value)}}
             placeholder="Ex: USD"
           />
           <button
@@ -73,7 +92,7 @@ export default function Home() {
         </div>
           <p>Pesquise por uma moeda para começar a acompanha-la</p>
       </div>
-      <div>
+      <div className="   ">
         {result ? (
           <Search
           id={result.id}
@@ -97,22 +116,20 @@ export default function Home() {
       </div>
 
       <ul className="rounded-lg w-[70%] bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
-        <ol className="flex w-full justify-around text-center ">
+        <ol className="flex w-full justify-around text-center items-center p-2  ">
           <li className="min-w-[10.28%] max-w-[15%]">Remover Interesse:</li>
-          <li className="min-w-[14.28%] max-w-[15%]">Sigla:</li>
-          <li className="min-w-[17.28%] max-w-[15%]">Nome:</li>
-          <li className="min-w-[14.28%] max-w-[15%]">Alta</li>
-          <li className="min-w-[14.28%] max-w-[15%]">Baixa</li>
-          <li className="min-w-[14.28%] max-w-[15%]">Diario</li>
-          <li className="min-w-[14.28%] max-w-[15%]">Ultimos 15 dias</li>
+          <li className="min-w-[14.28%] max-w-[13%]">Sigla:</li>
+          <li className="min-w-[22.28%] ">Cambio:</li>
+          <li className="min-w-[13.28%] max-w-[13%]">Alta</li>
+          <li className="min-w-[13.28%] max-w-[13%]">Baixa</li>
+          <li className="min-w-[13.28%] max-w-[13%]">Diario</li>
+          <li className="min-w-[13.28%] max-w-[13%]">Ultimos 15 dias</li>
         </ol>
-        <CurrencyTracking/>
-        <CurrencyTracking/>
-        <CurrencyTracking/>
-        <CurrencyTracking/>
-        <CurrencyTracking/>
-        <CurrencyTracking/>
-        <CurrencyTracking/>
+        {
+          last15DaysFromInterests ? (
+            last15DaysFromInterests.map((interest, index) => <InterestTracking code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
+            ) : null
+        }
       </ul>
         
       </section>

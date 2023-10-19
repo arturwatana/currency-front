@@ -3,10 +3,13 @@ import { CurrencyType, CurrencyTypeRes } from "../currency/model/currency.type";
 import { IUserRepository, LoginPropsReq, LoginPropsRes, RegisterPropsReq, RegisterPropsRes } from "./userRepository";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
+import { Last15DaysFromInterest } from "../interests/interest.interface";
 
 
 
 export class UserApolloRepository implements IUserRepository{
+
+
     async sendLoginRequest(data: LoginPropsReq): Promise<LoginPropsRes | string> {
         try {
             const result = await apolloClient.mutate({
@@ -60,7 +63,7 @@ export class UserApolloRepository implements IUserRepository{
             return err.message;
           }
     }
-    async getUserSearches(token: string): Promise<CurrencyTypeRes[] | string> {
+    async getUserSearches(): Promise<CurrencyTypeRes[] | string> {
         try {
             const result = await apolloClient.query({
               query: gql`
@@ -116,4 +119,36 @@ export class UserApolloRepository implements IUserRepository{
           }
     }
 
+    getUserInterests(token: string) {
+      throw new Error("Method not implemented.");
+    }
+    
+   async getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string> {
+      try {
+        const result = await apolloClient.query({
+          query: gql`
+            query getUserLast15DaysFromInterests {
+              getUserLast15DaysFromInterests {
+                code,
+                name,
+                high,
+                low,
+                varBid,
+                timestamp
+                lastDays{
+                  pctChange
+                }
+              }
+            }
+          `,
+          fetchPolicy: 'network-only'
+        });
+        return result.data.getUserLast15DaysFromInterests
+      } catch (err: any) {
+        if (err.message === "Failed to fetch") {
+          return "Ops, isso não foi possivel no momento";
+        }
+       return err.networkError.result.errors[0].message;
+      }
+    }
 }

@@ -1,5 +1,6 @@
 import { CurrencyType, CurrencyTypeRes } from "@/app/currency/model/currency.type";
 import { apolloClient } from "@/app/utils/apollo.client";
+import { formatCoin } from "@/app/utils/formatCoin";
 import { gql } from "@apollo/client";
 import {BsFillTrash3Fill} from "react-icons/bs"
 import { toast } from "react-toastify";
@@ -17,12 +18,7 @@ export default function Search({
   id,
   setDeleteSearchId
 }: SearchComponentProps) {
-  function formatCoin(coin: number) {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(coin);
-  }
+
 
   async function deleteSearch(){
     try {

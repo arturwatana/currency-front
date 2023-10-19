@@ -19,7 +19,7 @@ export default function MySearches() {
     if (!token) {
       return;
     }
-    const getUserSearchesRes = await userRepository.getUserSearches(token)
+    const getUserSearchesRes = await userRepository.getUserSearches()
     if(typeof getUserSearchesRes === "string"){
       toast.error(getUserSearchesRes)
       return
@@ -33,7 +33,6 @@ export default function MySearches() {
       if (filterByName === "Todas") {
         return categories;
       }
-
       return userSearches?.filter((search) => search.code === filterByName);
     }
     return [];
@@ -49,7 +48,6 @@ export default function MySearches() {
 
   function renderCategories(categories: string[]){
     return categories.map((category, index) => <option key={`key${index}`} >{category}</option>);
-
   }
 
   useEffect(() => {

@@ -1,0 +1,35 @@
+import { LastDaysQuery } from "@/app/interests/interest.interface";
+import { formatCoin } from "@/app/utils/formatCoin";
+import { BsFillTrash3Fill } from "react-icons/bs";
+
+interface InterestTrackProps {
+    code: string
+    name: string
+    high: string
+    low: string
+    varBid: string
+    lastDays: LastDaysQuery[]
+}
+
+
+export default function InterestTracking({code,high,lastDays,low,name,varBid}: InterestTrackProps){
+    const fortnightVariation = lastDays.reduce((acc, next) => {
+       return  acc + parseFloat(next.pctChange)
+    }, 0)
+
+    const dailyVariation = ((+high - +low) / +low) * 100
+
+    return (
+        <li className="w-full bg-[#ddd] p-2 border-[1px] border-black text-black rounded-lg font-bold flex items-center justify-center ">
+            <BsFillTrash3Fill className="text-red-600 font-bold text-[23px] cursor-pointer min-w-[10.28%]"/>
+            <ol className="w-full  flex justify-around text-center items-center ">
+                <li className="min-w-[14.28%] max-w-[16%] ">{code}</li>
+                <li className="min-w-[25.28%]  ">{name}</li>
+                <li className="min-w-[14.28%] max-w-[16%] text-[#4CBB17] ">{formatCoin(+high)}</li>
+                <li className="min-w-[14.28%] max-w-[16%] text-red-600 ">{formatCoin(+low)}</li>
+                <li className={`min-w-[14.28%] max-w-[16%] ${dailyVariation >= 0 ? "text-[#4CBB17]" : "text-red-600" } `}>{dailyVariation >= 0 ? "+" : ""}{dailyVariation.toFixed(2)}%</li>
+                <li className={`min-w-[14.28%] max-w-[16%] ${fortnightVariation >= 0 ? "text-[#4CBB17]" : "text-red-600" }`}>{fortnightVariation >= 0 ? "+" : ""}{fortnightVariation.toFixed(2)}%</li>
+            </ol>
+        </li>
+    )
+}
