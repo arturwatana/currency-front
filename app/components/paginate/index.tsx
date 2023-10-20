@@ -11,7 +11,7 @@ type PaginateProps = {
 };
 
 export default function Paginate({ elements, filterByName, categories }: PaginateProps) {
-  const qtdPerPage = 25;
+  const qtdPerPage = 10;
   const [paginateProps, setPaginateProps] = useState({
     page: 1,
     qtdPerPage: qtdPerPage,

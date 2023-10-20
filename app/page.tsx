@@ -71,7 +71,7 @@ if(currencyAlreadyInInterests){
         </div>
         <div className="flex gap-4">
         <label htmlFor="period">Pesquisar por periodo</label>
-        <input type="checkbox" name="period" id="" onChange={(e) => setQueryByPeriod(prev => !prev)} />
+        <input type="checkbox" name="period" id="" className="cursor-pointer" onChange={(e) => setQueryByPeriod(prev => !prev)} />
         </div>
         {queryByPeriod ? (
           <div className="flex gap-2 text-black items-center justify-center">
@@ -91,7 +91,7 @@ if(currencyAlreadyInInterests){
         
           <p>Pesquise por uma moeda para adiciona-la em seus interesses e começar a acompanha-la</p>
       </div>
-      <div className="   ">
+      <div className="z-40">
         {result ? (
           <Search
           id={result.id}
@@ -115,7 +115,7 @@ if(currencyAlreadyInInterests){
       </div>
 
       <ul className="rounded-lg w-[70%] bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
-        <ol className="flex w-full justify-around text-center items-center p-2  ">
+        <ol className="flex w-full justify-around text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] ">
           <li className="min-w-[10.28%] max-w-[15%]">Remover Interesse:</li>
           <li className="min-w-[14.28%] max-w-[13%]">Sigla:</li>
           <li className="min-w-[22.28%] ">Cambio:</li>

@@ -94,6 +94,7 @@ export class UserApolloRepository implements IUserRepository{
               mutation: gql`
                 mutation createCurrency($data: CurrencyReq) {
                   createCurrency(data: $data) {
+                    id
                     name
                     high
                     low

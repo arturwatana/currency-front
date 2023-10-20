@@ -1,10 +1,13 @@
 "use client";
 import { useGlobalContext } from "@/app/context/api/store";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import {CiMenuBurger} from "react-icons/ci"
 
 export default function NavBar() {
 
   const { loggedIn} = useGlobalContext();
+  const [rotateBurger, setRotateBurger] = useState<boolean>(false)
   const router = useRouter();
 
   function removeToken() {
@@ -14,9 +17,12 @@ export default function NavBar() {
 
 
   return (
-    <nav className=" w-[70%] flex justify-between text-lg mt-16 ">
-      <p className="font-bold text-[35px] text-white">CoinPulse</p>
-      <ul className="flex gap-5 text-white">
+    <nav className=" w-[70%] flex justify-between text-lg mt-16 text-white ">
+      <a href="/" className="font-bold text-[35px] text-white" >CoinPulse</a>
+      <div className="relative   ">
+      <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
+      {rotateBurger ? (
+        <ul className="flex flex-col gap-5 absolute text-white border-[2px] p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
         <a href="/">Home</a>
         {loggedIn ? (
           <>
@@ -32,6 +38,8 @@ export default function NavBar() {
           </>
         )}
       </ul>
+      ) : null}
+      </div>
     </nav>
   );
 }

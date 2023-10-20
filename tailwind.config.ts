@@ -8,6 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        rotate180: "rotate180 1s ease forwards",
+        openHeight: "openHeight 1s ease forwards"
+      },
+      keyframes: {
+        rotate180: {
+          "0%": {transform: "rotate(0deg)"},
+          "100%": {transform: "rotate(180deg)"}
+        },
+        openHeight: {
+          "0%": {height: "0%"},
+          "100%": {height: "100%"}
+        }
+      },
       colors: {
         primaryGreen: "#0074E4 ",
       },
