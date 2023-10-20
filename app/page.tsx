@@ -1,7 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { apolloClient } from "./utils/apollo.client";
-import { gql } from "@apollo/client";
 import { toast } from "react-toastify";
 import Search from "./components/Search";
 import { CurrencyTypeRes } from "./currency/model/currency.type";
@@ -14,41 +12,26 @@ import { Last15DaysFromInterest } from "./interests/interest.interface";
 export default function Home() {
   const [currency, setCurrency] = useState<string>("");
   const [result, setResult] = useState<CurrencyTypeRes>();
-  const [lastSearchByName, setLastSearchByName] = useState<CurrencyTypeRes>();
   const [last15DaysFromInterests, setLast15DaysFromInterests] = useState<Last15DaysFromInterest[]>([])
-
-  async function getLastSearchByName(name: string) {
-    try {
-      const result = await apolloClient.query({
-        query: gql`
-          query getLastSearchByName($name: String!) {
-            getLastSearchByName(name: $name) {
-              name
-              high
-              low
-              create_date
-            }
-          }
-        `,
-        variables: {
-          name: currency,
-        },
-      });
-      setLastSearchByName(result.data.getLastSearchByName);
-    } catch (err: any) {
-      console.log(err)
-      console.log(err.networkError.result.errors[0].message);
-    }
-  }
+  const [queryByPeriod, setQueryByPeriod] = useState(false)
 
   async function sendCurrencyRequest() {
+    if(currency.length === 0){
+      toast.error("Ops, ficou faltando dizer qual moeda pesquisar")
+      return
+    }
    const res = await userRepository.sendCurrencyRequest(currency)
    if(typeof res === "string"){
     toast(res)
     return
   }
   setResult(res)
+  const currencyAlreadyInInterests = last15DaysFromInterests.find(interest => interest.code === currency)
   getLast15DaysInterests()
+if(currencyAlreadyInInterests){
+  toast.success("Moeda consultada com sucesso")
+  return
+}
   toast.success("Interesse adicionado com sucesso");
   }
 
@@ -58,11 +41,12 @@ export default function Home() {
      toast(res)
      return
    }
-   console.log(res)
    setLast15DaysFromInterests(res)
   }
 
-  useEffect(() => {
+
+
+  useEffect(() => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
     getLast15DaysInterests()
   }, [])
 
@@ -83,14 +67,29 @@ export default function Home() {
               setCurrency(e.target.value)}}
             placeholder="Ex: USD"
           />
-          <button
+          
+        </div>
+        <div className="flex gap-4">
+        <label htmlFor="period">Pesquisar por periodo</label>
+        <input type="checkbox" name="period" id="" onChange={(e) => setQueryByPeriod(prev => !prev)} />
+        </div>
+        {queryByPeriod ? (
+          <div className="flex gap-2 text-black items-center justify-center">
+            <label htmlFor="start" className="text-white">Data de inicio:</label>
+            <input type="date" name="start" id="" className="p-1 rounded-md" />
+            <label htmlFor="end" className="text-white">Data de termino:</label>
+            <input type="date" name="end" id="" className="p-1 rounded-md"  />
+          </div> 
+        ) : null}
+
+<button
             className="border-[1px] rounded-md p-1 hover:bg-white hover:text-black hover:transition-colors"
             onClick={sendCurrencyRequest}
           >
             Pesquisar
           </button>
-        </div>
-          <p>Pesquise por uma moeda para começar a acompanha-la</p>
+        
+          <p>Pesquise por uma moeda para adiciona-la em seus interesses e começar a acompanha-la</p>
       </div>
       <div className="   ">
         {result ? (
@@ -101,7 +100,7 @@ export default function Home() {
             high={result.high}
             low={result.low}
             name={result.name}
-            index={1}
+            index={0}
           />
         ) : null}
         </div>
@@ -127,8 +126,8 @@ export default function Home() {
         </ol>
         {
           last15DaysFromInterests ? (
-            last15DaysFromInterests.map((interest, index) => <InterestTracking code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
-            ) : null
+            last15DaysFromInterests.map((interest, index) => <InterestTracking getLast15DaysInterests={getLast15DaysInterests} code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
+            ) : <li className="text-white">Loading</li>
         }
       </ul>
         

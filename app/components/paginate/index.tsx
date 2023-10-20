@@ -19,7 +19,6 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
   });
   const [deletedSearchId, setDeleteSearchId] = useState<string>("")
   const [elementsToShow, setElementsToShow] = useState(elements)
-  console.log(Math.ceil(elements.length / qtdPerPage))
 
   useEffect(() => {
     setPaginateProps({
