@@ -1,8 +1,6 @@
 "use client";
 import Form from "../components/form";
-import { useEffect, useState } from "react";
-import { apolloClient } from "../utils/apollo.client";
-import { gql } from "@apollo/client";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "../context/api/store";
@@ -36,7 +34,7 @@ export default function LoginPage() {
     }
     localStorage.setItem("user_token", loginRes.data.login.token);
     setIsLoggedIn(true)
-    toast("Logado com sucesso");
+    toast(`Logado com sucesso, seja bem vindo(a) ${loginRes.data.login.username}!`);
     router.push("/");
   }
 

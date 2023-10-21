@@ -41,7 +41,11 @@ export default function Search({
       }
       
     } catch(err: any){
-      console.log(err)
+      if (err.message === "Failed to fetch") {
+        toast.error("Ops, isso não foi possivel no momento")
+        return
+      }
+     toast.error(err.networkError.result.errors[0].message)
     }
   }
   return (
