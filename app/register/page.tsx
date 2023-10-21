@@ -38,8 +38,8 @@ export default function RegisterPage() {
     <main className="w-full h-full min-h-screen bg-primaryGreen flex md:flex-col-reverse  ">
       
         <BackPageBtn/>
-      <div className="w-[55%] relative  flex flex-col gap-10 items-center justify-center h-screen bg-[#222] md:w-full">
-      <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[0%] md:top-[-65%] md:w-full"></div> 
+      <div className="w-[55%] relative  flex flex-col gap-10 items-center justify-center h-screen bg-[#222] md:w-full md:h-full md:py-10">
+      <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[5%] md:top-[-65%] md:w-[90%]"></div> 
       <div className="h-[70%] flex items-center justify-center flex-col gap-8 relative 2xl:w-[70%] md:w-[90%] ">
         <div className="text-white text-center flex flex-col gap-3 text-[14px] lg:w-[90%] md:pt-44   ">
         <h1 className="font-bold text-[22px]">Consulte suas moedas favoritas</h1>

@@ -135,7 +135,7 @@ if(currencyAlreadyInInterests){
       <div className="w-[80%] flex flex-col gap-2 lg:w-[100%] px-4">
       <p className="w-full text-center">Suas moedas serão ordenadas por variação diária.</p>
       <ul className="rounded-lg  bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
-        <ol className="flex w-full justify-around text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] ">
+        <ol className="flex w-full justify-around text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] sm:text-[12px] ">
           <li className="min-w-[10.28%] max-w-[15%]">Remover:</li>
           <li className="min-w-[14.28%] max-w-[13%]">Sigla:</li>
           <li className="min-w-[22.28%] ">Cambio:</li>

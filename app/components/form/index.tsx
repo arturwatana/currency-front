@@ -84,7 +84,7 @@ export default function Form({
         </button>
       </div>
       <div className="w-full flex items-center justify-center">
-        <a href={formSecondActionURl} className="hover:border-b-[1px] text-center w-full " >{formSecondAction}</a>
+        <a href={formSecondActionURl} className="hover:border-b-[1px] text-center " >{formSecondAction}</a>
       </div>
     </form>
   );

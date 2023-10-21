@@ -2,10 +2,11 @@ import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
 
-const apolloServerURL = process.env.RENDER_URL
+const apolloServerURL = "https://currency-graphql.onrender.com/graphql"
+const localURL = "http://localhost:4000/graphql"
 
 const httpLink = createHttpLink({
-  uri: "https://currency-graphql.onrender.com/graphql",
+  uri: apolloServerURL,
 });
 
 const authLink = setContext((_, { headers }) => {
