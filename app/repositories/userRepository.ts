@@ -10,6 +10,7 @@ export interface LoginPropsReq{
 export interface LoginPropsResData {
     id: string
     token: string
+    username: string
 }
 
 export interface LoginPropsRes {

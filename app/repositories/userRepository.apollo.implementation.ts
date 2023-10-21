@@ -8,8 +8,6 @@ import { Last15DaysFromInterest } from "../interests/interest.interface";
 
 
 export class UserApolloRepository implements IUserRepository{
-
-
     async sendLoginRequest(data: LoginPropsReq): Promise<LoginPropsRes | string> {
         try {
             const result = await apolloClient.mutate({
@@ -18,6 +16,7 @@ export class UserApolloRepository implements IUserRepository{
                   login(data: $data) {
                     id
                     token
+                    username
                   }
                 }
               `,
@@ -92,7 +91,7 @@ export class UserApolloRepository implements IUserRepository{
         try {
             const result = await apolloClient.mutate({
               mutation: gql`
-                mutation createCurrency($data: CurrencyReq) {
+                mutation createCurrency($data: CurrencyReq!) {
                   createCurrency(data: $data) {
                     id
                     name
