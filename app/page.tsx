@@ -4,16 +4,17 @@ import { toast } from "react-toastify";
 import Search from "./components/Search";
 import { CurrencyTypeRes } from "./currency/model/currency.type";
 import NavBar from "./components/navbar";
-import Waves from "./components/Waves";
 import { userRepository } from "./repositories";
 import InterestTracking from "./components/tracking/InterestTracking";
 import { Last15DaysFromInterest } from "./interests/interest.interface";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [currency, setCurrency] = useState<string>("");
   const [result, setResult] = useState<CurrencyTypeRes>();
   const [last15DaysFromInterests, setLast15DaysFromInterests] = useState<Last15DaysFromInterest[]>([])
   const [queryByPeriod, setQueryByPeriod] = useState(false)
+  const router = useRouter();
 
   async function sendCurrencyRequest() {
     if(currency.length === 0){
@@ -22,7 +23,7 @@ export default function Home() {
     }
    const res = await userRepository.sendCurrencyRequest(currency)
    if(typeof res === "string"){
-    toast(res)
+    toast.error(res)
     return
   }
   setResult(res)
@@ -35,20 +36,38 @@ if(currencyAlreadyInInterests){
   toast.success("Interesse adicionado com sucesso");
   }
 
+  function sortElements(elements: Last15DaysFromInterest[]){
+    const elementsCopy = [...elements];
+
+    const sorted = elementsCopy.sort((prev, next) => {
+      const prevVariation = ((+prev.high - +prev.low) / +prev.low) * 100
+      const nextVariation = ((+next.high - +next.low) / +next.low) * 100
+      return +nextVariation - +prevVariation;
+    });
+    return sorted
+  }
+
   async function getLast15DaysInterests(){
     const res = await userRepository.getLast15DaysFromInterests()
     if(typeof res === "string"){
-     toast(res)
+      if(res === "Ops, preciso que faca o login novamente"){
+      }
+     toast.error(res)
      return
    }
    setLast15DaysFromInterests(res)
+   sortElements(res)
   }
 
-
-
-  useEffect(() => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+  useEffect(() => {
+    const token = localStorage.getItem("user_token")
+    if(!token){
+      router.push("/login");
+      return
+    }
     getLast15DaysInterests()
-  }, [])
+  },[])
+
 
   return (
     <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-primaryGreen text-white overflow-x-hidden">
@@ -113,23 +132,25 @@ if(currencyAlreadyInInterests){
       <div className="">
           <h2 className="font-bold text-center text-[40px]">Suas moedas trackeadas:</h2>
       </div>
-
-      <ul className="rounded-lg w-[70%] bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
+      <div className="w-[80%] flex flex-col gap-2">
+      <p className="w-full text-center">Suas moedas serão ordenadas por variação diária.</p>
+      <ul className="rounded-lg  bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
         <ol className="flex w-full justify-around text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] ">
           <li className="min-w-[10.28%] max-w-[15%]">Remover Interesse:</li>
           <li className="min-w-[14.28%] max-w-[13%]">Sigla:</li>
           <li className="min-w-[22.28%] ">Cambio:</li>
           <li className="min-w-[13.28%] max-w-[13%]">Alta</li>
           <li className="min-w-[13.28%] max-w-[13%]">Baixa</li>
-          <li className="min-w-[13.28%] max-w-[13%]">Diario</li>
-          <li className="min-w-[13.28%] max-w-[13%]">Ultimos 15 dias</li>
+          <li className="min-w-[13.28%] max-w-[13%]">Diário</li>
+          <li className="min-w-[13.28%] max-w-[13%]">Últimos 15 dias</li>
         </ol>
         {
           last15DaysFromInterests ? (
-            last15DaysFromInterests.map((interest, index) => <InterestTracking getLast15DaysInterests={getLast15DaysInterests} code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
+            sortElements(last15DaysFromInterests).map((interest, index) => <InterestTracking getLast15DaysInterests={getLast15DaysInterests} code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
             ) : <li className="text-white">Loading</li>
         }
       </ul>
+      </div>
         
       </section>
     </main>
