@@ -42,7 +42,7 @@ export default function LoginPage() {
     <main className="w-full h-full min-h-[100vh]  bg-primaryGreen flex items-center justify-center md:flex-col-reverse ">
       <BackPageBtn/>
       <div className="w-[55%] relative text-white flex flex-col gap-10 items-center border-2 min-h-[100vh] bg-[#222] border-neutral-600 justify-center md:w-full ">
-      <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[0%] md:top-[-65%] md:w-full"></div> 
+      <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[5%] md:top-[-65%] md:w-[90%]"></div> 
 
       <div className="flex flex-col items-center justify-center gap-4 font-bold text-[22px] ">
       <h1 className="text-[35px]">CoinPulse</h1>
