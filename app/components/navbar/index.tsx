@@ -22,7 +22,7 @@ export default function NavBar() {
       <div className="relative   ">
       <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
       {rotateBurger ? (
-        <ul className="flex flex-col gap-5 absolute text-white border-[2px] p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
+        <ul className="flex flex-col gap-5 absolute text-white bg-primaryGreen border-[2px] border-white p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
         <a href="/">Home</a>
         {loggedIn ? (
           <>
