@@ -35,17 +35,18 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="w-full h-full min-h-screen bg-primaryGreen flex ">
+    <main className="w-full h-full min-h-screen bg-primaryGreen flex md:flex-col-reverse  ">
       
-      <div className="w-[55%] relative  flex flex-col gap-10 items-center justify-center h-screen bg-[#222]">
-      <div className="bg-primaryGreen w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10"></div> 
         <BackPageBtn/>
-        <div className="text-white text-center flex flex-col gap-3 ">
+      <div className="w-[55%] relative  flex flex-col gap-10 items-center justify-center h-screen bg-[#222] md:w-full">
+      <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[0%] md:top-[-65%] md:w-full"></div> 
+      <div className="h-[70%] flex items-center justify-center flex-col gap-8 relative 2xl:w-[70%] md:w-[90%] ">
+        <div className="text-white text-center flex flex-col gap-3 text-[14px] lg:w-[90%] md:pt-44   ">
         <h1 className="font-bold text-[22px]">Consulte suas moedas favoritas</h1>
         <p className="">Bem-vindo ao CoinPulse! Comece agora a consultar o valor de suas moedas preferidas, incluindo valores antigos e históricos.</p>
         <h2 className="text-[22px] font-bold">Registro Rápido e Fácil</h2>
         <div className="w-full flex items-center justify-center">
-        <ol className="list-decimal w-[50%]">
+        <ol className="list-decimal w-[50%] lg:w-full lg:gap-2">
           <li>
             <p><span className="font-bold" >Crie uma Conta: </span>Preencha seus detalhes básicos para começar.</p>
           </li>
@@ -62,9 +63,13 @@ export default function RegisterPage() {
         <h3 className="font-bold text-[22px]">Não perca tempo, comece agora!</h3>
         <p>Registre-se e explore o mundo das criptomoedas com o CoinPulse. <span className="font-bold">É fácil e gratuito!</span> </p>
         </div>
-        <ImgWave width="40%" img={register}/>
+    <div className="flex items-center justify-center lg:opacity-0 lg:absolute md:opacity-100 md:relative ">
+        <ImgWave width="50%" img={register}/>
+    </div>
       </div>
-      <div className="w-[45%] h-full min-h-screen z-20 flex items-center justify-center">
+
+      </div>
+      <div className="w-[45%] h-full min-h-screen z-20 flex items-center justify-center md:w-full md:px-10">
       <Form
         nameOfInputs={["Usuário: ", "Email: ", "Senha: "]}
         typeOfInputs={["text", "text", "password"]}

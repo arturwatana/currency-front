@@ -28,19 +28,19 @@ export default function Form({
   return (
     <form
       action=""
-      className="flex flex-col gap-3 border-[1px] rounded-[2em] p-5 text-white w-[40%] h-[20em] items-center justify-around  "
+      className="flex flex-col gap-3 border-[1px] rounded-[2em] p-5 text-white md:min-w-full h-[20em] items-center justify-around w-[50%] xl:w-[70%] lg:w-[85%] md:w-full  "
     >
       <h1 className="text-[22px] font-bold text-center">{formAction}</h1>
       <div className="flex flex-col gap-5 items-center w-full">
       {nameOfInputs.map((name, index) => {
         return (
-          <div key={'keyForm' + index} className="flex w-[70%] items-center justify-around ">
-            <label className=" text-center" key={`label${index}`}>
+          <div key={'keyForm' + index} className="flex w-[70%] items-center justify-around gap-2 md:w-full ">
+            <label className=" text-center" key={`label${index} min-w-[40%]`}>
               {name}
             </label>
             <input
               type={typeOfInputs[index]}
-              className="rounded-[1em] p-2  text-black"
+              className="rounded-[1em] p-2  text-black min-w-[60%]"
               name={name}
               key={`input${index}`}
               onChange={(e) => {
@@ -74,7 +74,7 @@ export default function Form({
         <button
           type="button"
           onClick={actionButton}
-          className="border-[1px] rounded-[1em] px-4 py-2 hover:bg-black  hover:transition-all"
+          className="border-[1px] rounded-[1em] px-4 py-2 hover:bg-white hover:text-black  hover:transition-all md:px-6 md:py-4"
           key={"btn1"}
         >
           {formAction}
@@ -83,8 +83,8 @@ export default function Form({
           Cancelar
         </button>
       </div>
-      <div>
-        <a href={formSecondActionURl} className="hover:border-b-[1px]" >{formSecondAction}</a>
+      <div className="w-full flex items-center justify-center">
+        <a href={formSecondActionURl} className="hover:border-b-[1px] text-center w-full " >{formSecondAction}</a>
       </div>
     </form>
   );

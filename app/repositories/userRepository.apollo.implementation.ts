@@ -119,9 +119,9 @@ export class UserApolloRepository implements IUserRepository{
           }
     }
 
-    getUserInterests(token: string) {
-      throw new Error("Method not implemented.");
-    }
+   async sendPeriodCurrentRequest():Promise<any>{
+
+   } 
     
    async getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string> {
       try {

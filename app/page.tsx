@@ -73,7 +73,7 @@ if(currencyAlreadyInInterests){
     <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-primaryGreen text-white overflow-x-hidden">
           <NavBar />
     <section className="flex flex-col items-center relative w-full h-full z-20 min-h-screen ">
-    <div className="flex flex-col gap-10 items-center justify-center h-[70vh]">
+    <div className="flex flex-col gap-10 items-center justify-center h-[70vh] md:h-[80vh]">
       <div className="flex flex-col gap-5 items-center justify-start ">
         <h1 className="w-full text-center text-[22px] font-bold ">
           Pesquisar por uma moeda:
@@ -89,11 +89,11 @@ if(currencyAlreadyInInterests){
           
         </div>
         <div className="flex gap-4">
-        <label htmlFor="period">Pesquisar por periodo</label>
-        <input type="checkbox" name="period" id="" className="cursor-pointer" onChange={(e) => setQueryByPeriod(prev => !prev)} />
+        <label htmlFor="period" className="font-bold">Pesquisar por periodo:</label>
+        <input type="checkbox" name="period" id="" className="cursor-pointer w-[18px]" onChange={(e) => setQueryByPeriod(prev => !prev)} />
         </div>
         {queryByPeriod ? (
-          <div className="flex gap-2 text-black items-center justify-center">
+          <div className="flex gap-2 text-black items-center justify-center md:flex-col">
             <label htmlFor="start" className="text-white">Data de inicio:</label>
             <input type="date" name="start" id="" className="p-1 rounded-md" />
             <label htmlFor="end" className="text-white">Data de termino:</label>
@@ -108,7 +108,7 @@ if(currencyAlreadyInInterests){
             Pesquisar
           </button>
         
-          <p>Pesquise por uma moeda para adiciona-la em seus interesses e começar a acompanha-la</p>
+          <p className="w-full text-center px-5 md:w-[70%]">Pesquise por uma moeda para adiciona-la em seus interesses e começar a acompanha-la</p>
       </div>
       <div className="z-40">
         {result ? (
@@ -124,7 +124,7 @@ if(currencyAlreadyInInterests){
         ) : null}
         </div>
       </div>
-      <div className="absolute w-full bottom-0 ">
+      <div className="absolute w-full bottom-[-3px]  ">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#222" fillOpacity="1" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
          </div>
     </section>
@@ -132,11 +132,11 @@ if(currencyAlreadyInInterests){
       <div className="">
           <h2 className="font-bold text-center text-[40px]">Suas moedas trackeadas:</h2>
       </div>
-      <div className="w-[80%] flex flex-col gap-2">
+      <div className="w-[80%] flex flex-col gap-2 lg:w-[100%] px-4">
       <p className="w-full text-center">Suas moedas serão ordenadas por variação diária.</p>
       <ul className="rounded-lg  bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
         <ol className="flex w-full justify-around text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] ">
-          <li className="min-w-[10.28%] max-w-[15%]">Remover Interesse:</li>
+          <li className="min-w-[10.28%] max-w-[15%]">Remover:</li>
           <li className="min-w-[14.28%] max-w-[13%]">Sigla:</li>
           <li className="min-w-[22.28%] ">Cambio:</li>
           <li className="min-w-[13.28%] max-w-[13%]">Alta</li>

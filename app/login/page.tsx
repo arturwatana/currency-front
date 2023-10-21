@@ -39,17 +39,18 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="w-full h-full min-h-[100vh]  bg-primaryGreen flex items-center justify-center  ">
-      <div className="w-[55%] relative text-white flex flex-col gap-10 items-center border-2 min-h-[100vh] bg-[#222] border-neutral-600 justify-center  ">
+    <main className="w-full h-full min-h-[100vh]  bg-primaryGreen flex items-center justify-center md:flex-col-reverse ">
       <BackPageBtn/>
-      <div className="bg-primaryGreen w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10"></div> 
-      <div className="flex flex-col items-center justify-center gap-4 font-bold text-[22px]">
+      <div className="w-[55%] relative text-white flex flex-col gap-10 items-center border-2 min-h-[100vh] bg-[#222] border-neutral-600 justify-center md:w-full ">
+      <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[0%] md:top-[-65%] md:w-full"></div> 
+
+      <div className="flex flex-col items-center justify-center gap-4 font-bold text-[22px] ">
       <h1 className="text-[35px]">CoinPulse</h1>
       <h3 className="font-light text-[20px]">Seu aplicativo de consultas</h3>
       </div>
       <ImgWave width="55%" img={login}/>
       </div>
-      <div className="w-[45%] h-full min-h-screen z-20 flex items-center justify-center ">
+      <div className="w-[45%] h-full min-h-screen z-20 flex items-center justify-center md:w-full md:px-10 ">
       <Form
         nameOfInputs={["Usuário: ", "Senha: "]}
         typeOfInputs={["text", "password"]}
@@ -60,7 +61,8 @@ export default function LoginPage() {
         formSecondAction="Ainda não possui uma conta? Registre-se"
         formSecondActionURl="/register"
       />
-      </div>
+
+        </div>
     </main>
   );
 }

@@ -1,7 +1,6 @@
 import { CurrencyType, CurrencyTypeRes } from "../currency/model/currency.type"
 import { Last15DaysFromInterest } from "../interests/interest.interface"
 
-
 export interface LoginPropsReq{
     username: string
     password: string
@@ -34,6 +33,13 @@ export interface RegisterPropsRes {
         login: RegisterPropsResData
     }
 }
+export interface PeriodCurrencyPropsRes {
+    data: {
+        name: string
+        startAt: Date
+        endAt: Date
+    }
+}
 
 
 
@@ -45,4 +51,5 @@ export interface IUserRepository {
     getUserSearches(): Promise<CurrencyType[] | string>
     sendCurrencyRequest(name: string): Promise<CurrencyTypeRes | string>
     getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string>
+    sendPeriodCurrentRequest(data: PeriodCurrencyPropsRes): Promise<any>
 }
