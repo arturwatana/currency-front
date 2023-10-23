@@ -33,12 +33,11 @@ export interface RegisterPropsRes {
         login: RegisterPropsResData
     }
 }
-export interface PeriodCurrencyPropsRes {
-    data: {
-        name: string
-        startAt: Date
-        endAt: Date
-    }
+export interface PeriodCurrencyPropsReq {
+        from: string
+        to?: string
+        startAt: string
+        endAt: string
 }
 
 
@@ -49,7 +48,7 @@ export interface IUserRepository {
     sendLoginRequest(data:LoginPropsReq): Promise<LoginPropsRes | string>
     sendRegisterRequest(data:RegisterPropsReq): Promise<RegisterPropsRes | string>
     getUserSearches(): Promise<CurrencyType[] | string>
-    sendCurrencyRequest(name: string): Promise<CurrencyTypeRes | string>
+    sendCurrencyRequest(name: string, to: string): Promise<CurrencyTypeRes | string>
     getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string>
-    sendPeriodCurrentRequest(data: PeriodCurrencyPropsRes): Promise<any>
+    sendPeriodCurrentRequest(data: PeriodCurrencyPropsReq): Promise<any>
 }

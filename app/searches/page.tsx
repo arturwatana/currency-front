@@ -40,10 +40,19 @@ export default function MySearches() {
 
   function getCategories() {
     const categories = userSearches?.map((search) => {
-      return search.code;
+      return `${search.from}/${search.to}`;
     });
     const uniqueCategories = [...new Set(categories)];
-    return uniqueCategories
+    const sortedByFromName = uniqueCategories.sort((prev, next)=> {
+      if (prev < next) {
+        return -1;
+      }
+      if (prev > next) {
+        return 1;
+      }
+      return 0;
+    })
+    return sortedByFromName
   }
 
   function renderCategories(categories: string[]){

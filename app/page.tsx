@@ -9,25 +9,67 @@ import InterestTracking from "./components/tracking/InterestTracking";
 import { Last15DaysFromInterest } from "./interests/interest.interface";
 import { useRouter } from "next/navigation";
 
+interface CurrencyProps {
+  from: string
+  to: string
+}
+interface PeriodProps {
+  startAt: string
+  endAt: string
+}
+
+
 export default function Home() {
-  const [currency, setCurrency] = useState<string>("");
+  const [currency, setCurrency] = useState<CurrencyProps>({
+    from: "",
+    to: "BRL"
+  })
+  const [periodProps, setPeriodProps] = useState<PeriodProps>({
+    startAt: "",
+    endAt: ""
+  })
   const [result, setResult] = useState<CurrencyTypeRes>();
   const [last15DaysFromInterests, setLast15DaysFromInterests] = useState<Last15DaysFromInterest[]>([])
   const [queryByPeriod, setQueryByPeriod] = useState(false)
   const router = useRouter();
 
+function validateDate(start: string, end: string){
+  console.log(start,end)
+  if(!start || !end){
+    return null
+  }  
+  return "ok"
+}
+
   async function sendCurrencyRequest() {
-    if(currency.length === 0){
+    if(currency.from.length === 0){
       toast.error("Ops, ficou faltando dizer qual moeda pesquisar")
       return
     }
-   const res = await userRepository.sendCurrencyRequest(currency)
+    
+    let res
+    if(queryByPeriod){
+      const validate = validateDate(periodProps.startAt, periodProps.endAt)
+      if(validate != "ok"){
+      console.log("data invalida")
+      return
+    }
+    const dataReq = {
+      from: currency.from,
+      to: currency.to,
+      startAt: periodProps.startAt,
+      endAt: periodProps.endAt
+    }
+    res = await userRepository.sendPeriodCurrentRequest(dataReq)
+   } else {
+     res = await userRepository.sendCurrencyRequest(currency.from, currency.to)
+   }
    if(typeof res === "string"){
     toast.error(res)
     return
   }
   setResult(res)
-  const currencyAlreadyInInterests = last15DaysFromInterests.find(interest => interest.code === currency)
+  const currencyAlreadyInInterests = last15DaysFromInterests.find(interest => interest.code === currency.from)
   getLast15DaysInterests()
 if(currencyAlreadyInInterests){
   toast.success("Moeda consultada com sucesso")
@@ -78,14 +120,40 @@ if(currencyAlreadyInInterests){
         <h1 className="w-full text-center text-[22px] font-bold ">
           Pesquisar por uma moeda:
         </h1>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center justify-center md:flex-col md:gap-4">
+          <div className="flex gap-2 items-center justify-center">
+          <label htmlFor="from" className="md:min-w-[15%]">De:</label>
           <input
             type="text"
             className="border-[1px] p-1 text-black rounded-md"
             onChange={(e: any) => {
-              setCurrency(e.target.value)}}
+              setCurrency(prev => {
+                return {
+                  ...prev,
+                  from: e.target.value
+                }
+              })}}
             placeholder="Ex: USD"
+            name="from"
           />
+          </div>
+          <div className="flex gap-2 items-center justify-center">
+
+          <label htmlFor="to">Para:</label>
+          <input
+            type="text"
+            className="border-[1px] p-1 text-black rounded-md"
+            onChange={(e: any) => {
+              setCurrency(prev => {
+                return {
+                  ...prev,
+                  to: e.target.value
+                }
+              })}}
+            placeholder="Ex: USD"
+            name="to"
+          />
+          </div>
           
         </div>
         <div className="flex gap-4">
@@ -95,9 +163,19 @@ if(currencyAlreadyInInterests){
         {queryByPeriod ? (
           <div className="flex gap-2 text-black items-center justify-center md:flex-col">
             <label htmlFor="start" className="text-white">Data de inicio:</label>
-            <input type="date" name="start" id="" className="p-1 rounded-md" />
+            <input type="date" name="start" id="" className="p-1 rounded-md" onChange={(e) => setPeriodProps(prev => {
+             return {
+              ...prev,
+              startAt: e.target.value.split("-").join("")
+             }
+            })} />
             <label htmlFor="end" className="text-white">Data de termino:</label>
-            <input type="date" name="end" id="" className="p-1 rounded-md"  />
+            <input type="date" name="end" id="" className="p-1 rounded-md" onChange={(e) => setPeriodProps(prev => {
+             return {
+              ...prev,
+              endAt: e.target.value.split("-").join("")
+             }
+            })} />
           </div> 
         ) : null}
 
@@ -114,11 +192,13 @@ if(currencyAlreadyInInterests){
         {result ? (
           <Search
           id={result.id}
+          name={result.name}
             code={result.code}
             create_date={result.create_date}
             high={result.high}
             low={result.low}
-            name={result.name}
+            from={result.from}
+            to={result.to}
             index={0}
           />
         ) : null}
@@ -146,7 +226,7 @@ if(currencyAlreadyInInterests){
         </ol>
         {
           last15DaysFromInterests ? (
-            sortElements(last15DaysFromInterests).map((interest, index) => <InterestTracking getLast15DaysInterests={getLast15DaysInterests} code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
+            sortElements(last15DaysFromInterests).map((interest, index) => <InterestTracking getLast15DaysInterests={getLast15DaysInterests} codein={interest.codein}  code={interest.code} high={interest.high} lastDays={interest.lastDays} low={interest.low} name={interest.name} varBid={interest.varBid} key={`interest${index}`}/>)
             ) : <li className="text-white">Loading</li>
         }
       </ul>

@@ -14,6 +14,8 @@ export default function Search({
   high,
   low,
   name,
+  from,
+  to,
   index,
   id,
   setDeleteSearchId
@@ -51,7 +53,7 @@ export default function Search({
   return (
     <div
       key={index}
-      className="w-[22em]  bg-slate-200 shadow-md shadow-slate-900  text-[#333333] p-2 rounded-md minMd:hover:m-3 minMd:hover:scale-125 transition-all"
+      className="w-[22em]  bg-slate-200 shadow-md shadow-slate-900 flex flex-col justify-around  text-[#333333] min-h-[10em] p-2 rounded-md minMd:hover:m-3 minMd:hover:scale-125 transition-all"
     >
       <div className="w-full flex justify-between">
       <h1 className="font-bold">Consulta nº: {index + 1}</h1>
@@ -60,11 +62,11 @@ export default function Search({
       <h1 className="font-bold">Nome: {name}</h1>
       <p className=" font-bold">
         Valor mais alto:
-        <span className="text-[#4CBB17] font-bold">{formatCoin(+high)}</span>
+        <span className="text-[#4CBB17] font-bold ml-1">{formatCoin(+high, from)}</span>
       </p>
       <p className=" font-bold">
         Valor mais baixo:
-        <span className="text-[#FF4500]">{formatCoin(+low)}</span>
+        <span className="text-[#FF4500] ml-1">{formatCoin(+low, from)}</span>
       </p>
       <p className=" font-bold">
         Data da consulta: <span className="text-[#666666] ">{create_date}</span>{" "}

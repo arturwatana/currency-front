@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { CurrencyType, CurrencyTypeRes } from "../currency/model/currency.type";
-import { IUserRepository, LoginPropsReq, LoginPropsRes, RegisterPropsReq, RegisterPropsRes } from "./userRepository";
+import { IUserRepository, LoginPropsReq, LoginPropsRes, PeriodCurrencyPropsReq, RegisterPropsReq, RegisterPropsRes } from "./userRepository";
 import { apolloClient } from "../utils/apollo.client";
 import { gql } from "@apollo/client";
 import { Last15DaysFromInterest } from "../interests/interest.interface";
@@ -68,7 +68,8 @@ export class UserApolloRepository implements IUserRepository{
               query: gql`
                 query searches {
                   searches {
-                    code
+                    from
+                    to
                     name
                     high
                     low
@@ -80,13 +81,14 @@ export class UserApolloRepository implements IUserRepository{
             });
             return result.data.searches
           } catch (err: any) {
+            console.log(err)
             if (err.message === "Failed to fetch") {
               return "Ops, isso não foi possivel no momento";
             }
            return err.networkError.result.errors[0].message;
           }
     }
-   async sendCurrencyRequest(name: string): Promise<CurrencyTypeRes | string> {
+   async sendCurrencyRequest(from: string, to: string): Promise<CurrencyTypeRes | string> {
         try {
             const result = await apolloClient.mutate({
               mutation: gql`
@@ -94,6 +96,8 @@ export class UserApolloRepository implements IUserRepository{
                   createCurrency(data: $data) {
                     id
                     name
+                    from,
+                    to
                     high
                     low
                     create_date
@@ -102,7 +106,8 @@ export class UserApolloRepository implements IUserRepository{
               `,
               variables: {
                 data: {
-                    name,
+                    from,
+                    to
                 },
               },
             });
@@ -118,8 +123,49 @@ export class UserApolloRepository implements IUserRepository{
           }
     }
 
-   async sendPeriodCurrentRequest():Promise<any>{
+   async sendPeriodCurrentRequest({endAt,from,startAt,to}: PeriodCurrencyPropsReq):Promise<any>{
+    try {
+      const result = await apolloClient.mutate({
+        mutation: gql`
+          mutation createCurrencyByPeriod($data: CreateCurrencyByPeriodDTO!) {
+            createCurrencyByPeriod(data: $data) {
+              id
+              name
+              codein,
+              code
+              high
+              low
+              create_date
+              otherDays{
+                timestamp
+                high
+                low
 
+              }
+            }
+          }
+        `,
+        variables: {
+          data: {
+              from,
+              to,
+              startAt,
+              endAt
+          },
+        },
+      });
+      console.log(result)
+      return result.data.createCurrencyByPeriod
+    } catch (err: any) {
+      console.log((err))
+      if (err.message === "Failed to fetch") {
+        return "Ops, isso não foi possivel no momento"
+      }
+      if (err.message.startsWith("moeda")) {
+        return err.message;
+      }
+      return err.networkError.result.errors[0].message
+    }
    } 
     
    async getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string> {
@@ -129,6 +175,7 @@ export class UserApolloRepository implements IUserRepository{
             query getUserLast15DaysFromInterests {
               getUserLast15DaysFromInterests {
                 code,
+                codein
                 name,
                 high,
                 low,

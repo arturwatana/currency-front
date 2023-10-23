@@ -57,7 +57,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
 
       if(filterByName != "Todas"){
         const filteredElements = elementsToShow.filter(element => {
-          if(element.code === filterByName){
+          const filterElementName = `${element.from}/${element.to}`
+          if(filterElementName === filterByName){
             return element
           }
           return 
@@ -66,6 +67,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
           if (index >= firstElement && index + 1 <= lastElement) {
             return (
               <Search
+              from={element.from}
+              to={element.to}
                 setDeleteSearchId={setDeleteSearchId}
                 id={element.id}
                 code={element.code}
@@ -85,6 +88,8 @@ export default function Paginate({ elements, filterByName, categories }: Paginat
       if (index >= firstElement && index + 1 <= lastElement) {
         return (
           <Search
+          from={element.from}
+          to={element.to}
             setDeleteSearchId={setDeleteSearchId}
             id={element.id}
             code={element.code}

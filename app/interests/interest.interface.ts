@@ -4,6 +4,8 @@
 export interface Last15DaysFromInterest {
     code: string
     codein: string
+    from: string
+    to: string
     name: string
     high: string
     low: string
