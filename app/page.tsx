@@ -33,20 +33,17 @@ export default function Home() {
   const [queryByPeriod, setQueryByPeriod] = useState(false)
   const router = useRouter();
 
-function validateDate(start: string, end: string){
-  console.log(start,end)
-  if(!start || !end){
-    return null
-  }  
-  return "ok"
-}
-
+    function validateDate(start: string, end: string){
+      if(!start || !end){
+        return null
+      }  
+      return "ok"
+    }
   async function sendCurrencyRequest() {
     if(currency.from.length === 0){
       toast.error("Ops, ficou faltando dizer qual moeda pesquisar")
       return
     }
-    
     let res
     if(queryByPeriod){
       const validate = validateDate(periodProps.startAt, periodProps.endAt)
@@ -80,7 +77,6 @@ if(currencyAlreadyInInterests){
 
   function sortElements(elements: Last15DaysFromInterest[]){
     const elementsCopy = [...elements];
-
     const sorted = elementsCopy.sort((prev, next) => {
       const prevVariation = ((+prev.high - +prev.low) / +prev.low) * 100
       const nextVariation = ((+next.high - +next.low) / +next.low) * 100
@@ -112,11 +108,11 @@ if(currencyAlreadyInInterests){
 
 
   return (
-    <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-primaryGreen text-white overflow-x-hidden">
+    <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-primaryGreen text-black overflow-x-hidden">
           <NavBar />
     <section className="flex flex-col items-center relative w-full h-full z-20 min-h-screen ">
-    <div className="flex flex-col gap-10 items-center justify-center h-[70vh] md:h-[80vh]">
-      <div className="flex flex-col gap-5 items-center justify-start ">
+    <div className="flex flex-col gap-10 items-center justify-center min-h-[70vh] h-full md:h-[80vh]">
+      <div className="flex flex-col gap-5 items-center justify-center  ">
         <h1 className="w-full text-center text-[22px] font-bold ">
           Pesquisar por uma moeda:
         </h1>
@@ -130,7 +126,7 @@ if(currencyAlreadyInInterests){
               setCurrency(prev => {
                 return {
                   ...prev,
-                  from: e.target.value
+                  from: e.target.value.replaceAll(" ", "")
                 }
               })}}
             placeholder="Ex: USD"
@@ -147,7 +143,7 @@ if(currencyAlreadyInInterests){
               setCurrency(prev => {
                 return {
                   ...prev,
-                  to: e.target.value
+                  to: e.target.value.replaceAll(" ", "")
                 }
               })}}
             placeholder="Ex: USD"
@@ -210,11 +206,11 @@ if(currencyAlreadyInInterests){
     </section>
       <section className=" w-full min-h-screen py-20 flex flex-col items-center gap-24  bg-[#222]">
       <div className="">
-          <h2 className="font-bold text-center text-[40px] md:text-[25px]">Suas moedas trackeadas:</h2>
+          <h2 className="font-bold text-center text-[40px] md:text-[25px] text-white">Suas moedas trackeadas:</h2>
       </div>
       <div className="w-[80%] flex flex-col gap-2 lg:w-[100%] px-4">
-      <p className="w-full text-center">Suas moedas serão ordenadas por variação diária.</p>
-      <ul className="rounded-lg  bg-[#0074E4] p-4 sm:p-1 text-black  gap-4 flex flex-col font-bold">
+      <p className="w-full text-center text-white">Suas moedas serão ordenadas por variação diária.</p>
+      <ul className="rounded-lg  bg-primaryGreen p-4 sm:p-1 text-black  gap-4 flex flex-col font-bold">
         <ol className="flex w-full justify-around sm:relative text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] sm:text-[12px] ">
           <li className="min-w-[10.28%] max-w-[15%]">Remover</li>
           <li className="min-w-[14.28%] max-w-[13%]">Sigla</li>

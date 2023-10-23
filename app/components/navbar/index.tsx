@@ -17,12 +17,12 @@ export default function NavBar() {
 
 
   return (
-    <nav className=" w-[70%] flex justify-between text-lg mt-8 text-white lg:w-[80%]">
+    <nav className=" w-[70%] flex justify-between text-lg mt-8 text-white lg:w-[80%] mb-8">
       <a href="/" className="font-bold text-[35px] text-white md:text-[25px]" >CoinPulse</a>
       <div className="relative   ">
       <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
       {rotateBurger ? (
-        <ul className="flex flex-col gap-5 absolute text-white bg-primaryGreen border-[2px] border-white p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
+        <ul className="flex flex-col gap-5 absolute text-white bg-[#222] border-[2px] border-white p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
         <a href="/">Home</a>
         {loggedIn ? (
           <>

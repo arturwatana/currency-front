@@ -23,7 +23,8 @@ const config: Config = {
         }
       },
       colors: {
-        primaryGreen: "#0074E4 ",
+        primaryGreen: "#F2A900 ",
+        // #0074e4
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

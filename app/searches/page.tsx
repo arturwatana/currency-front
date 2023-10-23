@@ -33,7 +33,8 @@ export default function MySearches() {
       if (filterByName === "Todas") {
         return categories;
       }
-      return userSearches?.filter((search) => search.code === filterByName);
+      return userSearches?.filter((search) => 
+        `${search.from}/${search.to}` === filterByName);
     }
     return [];
   }
