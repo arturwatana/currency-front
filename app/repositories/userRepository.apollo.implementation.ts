@@ -119,6 +119,9 @@ export class UserApolloRepository implements IUserRepository{
             if (err.message.startsWith("moeda")) {
               return err.message;
             }
+            if (err.message.startsWith("Ops")) {
+              return err.message;
+            }
             return err.networkError.result.errors[0].message
           }
     }
