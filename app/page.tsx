@@ -66,7 +66,9 @@ export default function Home() {
     return
   }
   setResult(res)
-  const currencyAlreadyInInterests = last15DaysFromInterests.find(interest => interest.code === currency.from)
+  const currencyAlreadyInInterests = last15DaysFromInterests.find(interest => {
+    if(interest.code.toLowerCase() === currency.from.toLowerCase() && interest.codein.toLowerCase() === currency.to.toLowerCase()) return interest
+  })
   getLast15DaysInterests()
 if(currencyAlreadyInInterests){
   toast.success("Moeda consultada com sucesso")
