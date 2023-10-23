@@ -28,7 +28,7 @@ export default function Form({
   return (
     <form
       action=""
-      className="flex flex-col gap-3 border-[1px] border-black rounded-[2em] p-5 text-black sm:min-w-full h-[20em] items-center justify-around w-[50%] xl:w-[70%] lg:w-[85%] md:w-[80%] md:h-full  "
+      className="flex flex-col gap-3 border-[1px] border-black rounded-[2em] p-5 text-white sm:min-w-full h-[20em] items-center justify-around w-[50%] xl:w-[70%] lg:w-[85%] md:w-[80%] md:h-full  "
     >
       <h1 className="text-[22px] font-bold text-center">{formAction}</h1>
       <div className="flex flex-col gap-5 items-center w-full">
