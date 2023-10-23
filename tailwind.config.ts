@@ -37,6 +37,7 @@ const config: Config = {
       'lg': {'max': '1024px'},
       'md': {'max': '768px'},
       'sm': {'max': '640px'},
+      "sosm": {"max": '440px'}
     }
   },
   plugins: [],

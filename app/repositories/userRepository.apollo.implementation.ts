@@ -78,7 +78,6 @@ export class UserApolloRepository implements IUserRepository{
                 }
               `,
             });
-            toast("Últimas pesquisas carregadas com sucesso!");
             return result.data.searches
           } catch (err: any) {
             if (err.message === "Failed to fetch") {

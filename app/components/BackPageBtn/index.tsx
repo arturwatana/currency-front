@@ -12,6 +12,6 @@ export default function BackPageBtn(){
       router.push("/");
     }
     return (
-        <button className="absolute z-30 text-white top-10 right-[90%] xl:right-[70%] border-[1px] transition-all min-w-[8em] rounded-full p-2 min-h-[3em] flex items-center justify-center" onClick={redirectUser } onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>{hover ? "Voltar" : <BiArrowBack />}</button>
+        <button className="absolute z-30 text-white top-10 right-[90%] xl:right-[70%] sm:right-[55%] border-[1px] transition-all min-w-[8em] rounded-full p-2 min-h-[3em] flex items-center justify-center" onClick={redirectUser } onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>{hover ? "Voltar" : <BiArrowBack />}</button>
     )
 }

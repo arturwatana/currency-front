@@ -130,19 +130,19 @@ if(currencyAlreadyInInterests){
     </section>
       <section className=" w-full min-h-screen py-20 flex flex-col items-center gap-24  bg-[#222]">
       <div className="">
-          <h2 className="font-bold text-center text-[40px] md:text-[30px]">Suas moedas trackeadas:</h2>
+          <h2 className="font-bold text-center text-[40px] md:text-[25px]">Suas moedas trackeadas:</h2>
       </div>
       <div className="w-[80%] flex flex-col gap-2 lg:w-[100%] px-4">
       <p className="w-full text-center">Suas moedas serão ordenadas por variação diária.</p>
-      <ul className="rounded-lg  bg-[#0074E4] p-4 text-black  gap-4 flex flex-col font-bold">
+      <ul className="rounded-lg  bg-[#0074E4] p-4 sm:p-1 text-black  gap-4 flex flex-col font-bold">
         <ol className="flex w-full justify-around sm:relative text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] sm:text-[12px] ">
-          <li className="min-w-[10.28%] max-w-[15%]">Remover:</li>
-          <li className="min-w-[14.28%] max-w-[13%]">Sigla:</li>
-          <li className="min-w-[22.28%] sm:absolute sm:opacity-0 ">Cambio:</li>
+          <li className="min-w-[10.28%] max-w-[15%]">Remover</li>
+          <li className="min-w-[14.28%] max-w-[13%]">Sigla</li>
+          <li className="min-w-[22.28%] sm:absolute sm:opacity-0 ">Cambio</li>
           <li className="min-w-[13.28%] max-w-[13%]">Alta</li>
           <li className="min-w-[13.28%] max-w-[13%]">Baixa</li>
           <li className="min-w-[13.28%] max-w-[13%]">Diário</li>
-          <li className="min-w-[13.28%] max-w-[13%]">Últimos 15 dias</li>
+          <li className="min-w-[13.28%] max-w-[13%] sm:absolute sm:opacity-0 ">Últimos 15 dias</li>
         </ol>
         {
           last15DaysFromInterests ? (

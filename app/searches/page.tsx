@@ -11,7 +11,6 @@ import { userRepository } from "../repositories";
 
 export default function MySearches() {
   const [userSearches, setUserSearches] = useState<CurrencyTypeRes[]>();
-  
   const [filterByName, setFilterByName] = useState<string>("Todas");
 
   async function getUserSearches() {
@@ -24,6 +23,7 @@ export default function MySearches() {
       toast.error(getUserSearchesRes)
       return
     }
+    toast("Últimas pesquisas carregadas com sucesso!");
     setUserSearches(getUserSearchesRes)
   }
 
@@ -60,15 +60,15 @@ export default function MySearches() {
     <main className="w-full flex-col  bg-primaryGreen flex items-center justify-center ">
           <NavBar />
       <div className="flex flex-col  w-[65%] justify-between items-center flex-wrap gap-5 lg:w-full lg:py-10">
-        <div>
+        <div className="flex flex-col gap-2">
           <h3 className="font-bold text-white">Buscar por moeda:</h3>
           <select
-            className="w-full text-center"
+            className="w-full text-center rounded-lg p-1"
             onChange={(e) => {
               setFilterByName(e.target.value);
             }}
           >
-            <option>Todas</option>
+            <option className="text-center w-full" >Todas</option>
             {userSearches ? renderCategories(getCategories()) : null}
           </select>
         </div>

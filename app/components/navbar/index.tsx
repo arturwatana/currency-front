@@ -17,8 +17,8 @@ export default function NavBar() {
 
 
   return (
-    <nav className=" w-[70%] flex justify-between text-lg mt-16 text-white lg:w-[85%]">
-      <a href="/" className="font-bold text-[35px] text-white" >CoinPulse</a>
+    <nav className=" w-[70%] flex justify-between text-lg mt-8 text-white lg:w-[80%]">
+      <a href="/" className="font-bold text-[35px] text-white md:text-[25px]" >CoinPulse</a>
       <div className="relative   ">
       <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
       {rotateBurger ? (

@@ -41,7 +41,7 @@ export default function RegisterPage() {
       <div className="w-[55%] relative  flex flex-col gap-10 items-center justify-center h-screen bg-[#222] md:w-full md:h-full md:py-10">
       <div className="bg-primaryGreen  w-[80%] absolute h-[85%] rounded-full left-[85%] top-[8%] z-10 md:left-[5%] md:top-[-65%] md:w-[90%]"></div> 
       <div className="h-[70%] flex items-center justify-center flex-col gap-8 relative 2xl:w-[70%] md:w-[90%] ">
-        <div className="text-white text-center flex flex-col gap-3 text-[14px] lg:w-[90%] md:pt-44   ">
+        <div className="text-white text-center flex flex-col gap-3 text-[16px] 2lg:text-[14px] lg:w-[90%] md:pt-44   ">
         <h1 className="font-bold text-[22px]">Consulte suas moedas favoritas</h1>
         <p className="">Bem-vindo ao CoinPulse! Comece agora a consultar o valor de suas moedas preferidas, incluindo valores antigos e históricos.</p>
         <h2 className="text-[22px] font-bold">Registro Rápido e Fácil</h2>
@@ -51,7 +51,7 @@ export default function RegisterPage() {
             <p><span className="font-bold" >Crie uma Conta: </span>Preencha seus detalhes básicos para começar.</p>
           </li>
           <li>
-            <p><span className="font-bold">Adicione Suas Moedas: </span>Escolha suas criptomoedas favoritas para rastrear.</p>
+            <p><span className="font-bold">Adicione Suas Moedas: </span>Escolha suas moedas favoritas para rastrear.</p>
           </li>
           <li>
           <p><span className="font-bold">Acesse Valores Antigos: </span>Consulte os valores passados e históricos de suas moedas.</p>
@@ -61,7 +61,7 @@ export default function RegisterPage() {
         </div>
 
         <h3 className="font-bold text-[22px]">Não perca tempo, comece agora!</h3>
-        <p>Registre-se e explore o mundo das criptomoedas com o CoinPulse. <span className="font-bold">É fácil e gratuito!</span> </p>
+        <p>Registre-se e explore o mundo das finanças com o CoinPulse. <span className="font-bold">É fácil e gratuito!</span> </p>
         </div>
     <div className="flex items-center justify-center lg:opacity-0 lg:absolute md:opacity-100 md:relative ">
         <ImgWave width="50%" img={register}/>
