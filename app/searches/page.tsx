@@ -8,6 +8,7 @@ import Search from "../components/Search";
 import Paginate from "../components/paginate";
 import NavBar from "../components/navbar";
 import { userRepository } from "../repositories";
+import Footer from "../components/Footer";
 
 export default function MySearches() {
   const [userSearches, setUserSearches] = useState<CurrencyTypeRes[]>();
@@ -67,7 +68,7 @@ export default function MySearches() {
   []);
 
   return (
-    <main className="w-full flex-col  bg-primaryGreen flex items-center justify-center ">
+    <main className="w-full flex-col  bg-primaryGreen flex items-center justify-center relative min-h-[100vh] ">
           <NavBar />
       <div className="flex flex-col  w-[65%] justify-between items-center flex-wrap gap-5 lg:w-full lg:py-10">
         <div className="flex flex-col gap-2">
@@ -94,6 +95,7 @@ export default function MySearches() {
           )}
         </div>
       </div>
+      <Footer/>
     </main>
   );
 }

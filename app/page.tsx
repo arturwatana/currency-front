@@ -8,6 +8,7 @@ import { userRepository } from "./repositories";
 import InterestTracking from "./components/tracking/InterestTracking";
 import { Last15DaysFromInterest } from "./interests/interest.interface";
 import { useRouter } from "next/navigation";
+import Footer from "./components/Footer";
 
 interface CurrencyProps {
   from: string
@@ -48,7 +49,6 @@ export default function Home() {
     if(queryByPeriod){
       const validate = validateDate(periodProps.startAt, periodProps.endAt)
       if(validate != "ok"){
-      console.log("data invalida")
       return
     }
     const dataReq = {
@@ -110,7 +110,7 @@ if(currencyAlreadyInInterests){
 
 
   return (
-    <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-primaryGreen text-black overflow-x-hidden">
+    <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-[#222] text-white overflow-x-hidden">
           <NavBar />
     <section className="flex flex-col items-center relative w-full h-full z-20 min-h-screen ">
     <div className="flex flex-col gap-10 items-center justify-center min-h-[70vh] h-full md:h-[80vh]">
@@ -203,16 +203,16 @@ if(currencyAlreadyInInterests){
         </div>
       </div>
       <div className="absolute w-full bottom-[-3px]  ">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#222" fillOpacity="1" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F2A900" fillOpacity="1" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
          </div>
     </section>
-      <section className=" w-full min-h-screen py-20 flex flex-col items-center gap-24  bg-[#222]">
+      <section className=" w-full min-h-screen py-20 flex flex-col items-center gap-24  bg-[#F2A900]">
       <div className="">
           <h2 className="font-bold text-center text-[40px] md:text-[25px] text-white">Suas moedas trackeadas:</h2>
       </div>
       <div className="w-[80%] flex flex-col gap-2 lg:w-[100%] px-4">
       <p className="w-full text-center text-white">Suas moedas serão ordenadas por variação diária.</p>
-      <ul className="rounded-lg  bg-primaryGreen p-4 sm:p-1 text-black  gap-4 flex flex-col font-bold">
+      <ul className="rounded-lg  bg-[#222] p-2 sm:p-1 text-black  gap-4 flex flex-col font-bold">
         <ol className="flex w-full justify-around sm:relative text-center items-center text-black p-2 border-[1px] bg-[#ddd] rounded-lg border-[#222] sm:text-[12px] ">
           <li className="min-w-[10.28%] max-w-[15%]">Remover</li>
           <li className="min-w-[14.28%] max-w-[13%]">Sigla</li>
@@ -229,6 +229,7 @@ if(currencyAlreadyInInterests){
         }
       </ul>
       </div>
+      <Footer/>
         
       </section>
     </main>
