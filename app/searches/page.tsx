@@ -68,7 +68,7 @@ export default function MySearches() {
   []);
 
   return (
-    <main className="w-full flex-col   bg-primaryGreen flex items-center justify-center relative min-h-[100vh] py-32 ">
+    <main className="w-full flex-col bg-primaryGreen flex items-center relative min-h-[100vh] py-32 ">
           <NavBar />
       <div className="flex flex-col  w-[65%] items-center  flex-wrap gap-5 lg:w-full lg:py-10">
         <div className="flex flex-col gap-2">
