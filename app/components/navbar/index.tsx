@@ -1,8 +1,9 @@
 "use client";
 import { useGlobalContext } from "@/app/context/api/store";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import {CiMenuBurger} from "react-icons/ci"
+import Notification from "../Notification";
 
 export default function NavBar() {
 
@@ -20,6 +21,7 @@ export default function NavBar() {
     <nav className=" w-[70%] flex justify-between text-lg text-white lg:w-[80%] absolute top-10  z-30">
       <a href="/" className="font-bold text-[35px] text-white md:text-[25px]" >CoinPulse</a>
       <div className="relative   ">
+      <Notification/>
       <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
       {rotateBurger ? (
         <ul className="flex flex-col gap-5 absolute text-white bg-[#222] border-[2px] border-white p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
