@@ -28,14 +28,14 @@ export default function Form({
   return (
     <form
       action=""
-      className="flex flex-col gap-3 border-[1px] border-black rounded-[2em] p-5 text-white sm:min-w-full h-[20em] items-center justify-around w-[50%] xl:w-[70%] lg:w-[85%] md:w-[80%] md:h-full  "
+      className="flex flex-col gap-3 border-[1px] h-full border-black rounded-[2em] p-5 text-white sm:min-w-full   items-center justify-around w-[50%]  2xl:w-[80%] xl:w-[80%] lg:w-[85%] md:w-[80%] md:h-full  "
     >
       <h1 className="text-[22px] font-bold text-center">{formAction}</h1>
       <div className="flex flex-col gap-5 items-center w-full">
       {nameOfInputs.map((name, index) => {
         return (
-          <div key={'keyForm' + index} className="flex w-[70%] items-center justify-around gap-2 md:w-full sm:flex-col ">
-            <label className=" text-center" key={`label${index} min-w-[40%]`}>
+          <div key={'keyForm' + index} className="flex w-[90%] items-center justify-around gap-2 md:w-full sm:flex-col ">
+            <label className=" text-center  min-w-[30%]" key={`label${index}`}>
               {name}
             </label>
             <input
@@ -70,7 +70,7 @@ export default function Form({
         );
       })}
       </div>
-      <div className="flex justify-around w-[70%] 2lg:w-full sm:flex-col sm:gap-4">
+      <div className="flex justify-around w-[70%] 2lg:w-full sm:flex-col sm:gap-4 gap-6">
         <button
           type="button"
           onClick={actionButton}
@@ -80,7 +80,7 @@ export default function Form({
           {formAction}
         </button>
         <button className="border-[1px] rounded-[1em] px-4 py-2  hover:bg-white hover:text-black  hover:transition-all" type="reset" key="btn2">
-          Cancelar
+          Limpar campos
         </button>
       </div>
       <div className="w-full flex items-center justify-center">

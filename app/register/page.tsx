@@ -61,7 +61,8 @@ export default function RegisterPage() {
         </div>
 
         <h3 className="font-bold text-[22px]">Não perca tempo, comece agora!</h3>
-        <p>Registre-se e explore o mundo das finanças com o CoinPulse. <span className="font-bold">É fácil e gratuito!</span> </p>
+        <p>Registre-se e explore o mundo das finanças com o CoinPulse. </p>
+          <p className="font-bold">É fácil e gratuito!</p> 
         </div>
     <div className="flex items-center justify-center lg:opacity-0 lg:absolute md:opacity-100 md:relative ">
         <ImgWave width="50%" img={register}/>
