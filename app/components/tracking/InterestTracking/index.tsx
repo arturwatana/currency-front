@@ -62,7 +62,7 @@ export default function InterestTracking({code,high,lastDays,low,name,varBid, co
             <ol className="w-full  flex justify-around text-center items-center ">
                 <li className="min-w-[14.28%] max-w-[16%]  ">{`${code}/${codein}`}</li>
                 <li className="min-w-[25.28%] sm:absolute sm:opacity-0 ">{name}</li>
-                <li className="min-w-[14.28%] max-w-[16%] text-[#4CBB17] ">{formatCoin(+high, code)}</li>
+                <li className="min-w-[14.28%] max-w-[16%] text-[#4CBB17] ">{formatCoin(+high, codein)}</li>
                 <li className="min-w-[14.28%] max-w-[16%] text-red-600 ">{formatCoin(+low, code)}</li>
                 <li className={`min-w-[14.28%] max-w-[16%] ${dailyVariation >= 0 ? "text-[#4CBB17]" : "text-red-600" } `}>{dailyVariation >= 0 ? "+" : ""}{dailyVariation.toFixed(2)}%</li>
                 <li className={`min-w-[14.28%] max-w-[16%] sm:absolute sm:opacity-0 ${averageFornightPctChange >= 0 ? "text-[#4CBB17]" : "text-red-600" } `}>{averageFornightPctChange >= 0 ? "+" : ""}{averageFornightPctChange.toFixed(2)}%</li>

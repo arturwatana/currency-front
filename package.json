@@ -11,8 +11,10 @@
   "dependencies": {
     "@apollo/client": "^3.8.4",
     "@reduxjs/toolkit": "^1.9.7",
+    "axios": "^1.5.1",
     "graphql": "^16.8.1",
     "next": "latest",
+    "pusher-js": "^8.3.0",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.11.0",

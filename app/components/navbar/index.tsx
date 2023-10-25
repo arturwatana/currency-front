@@ -18,11 +18,13 @@ export default function NavBar() {
 
 
   return (
-    <nav className=" w-[70%] flex justify-between text-lg text-white lg:w-[80%] absolute top-10  z-30">
+    <header className=" w-[70%] flex justify-between text-lg text-white lg:w-[80%] absolute top-10  z-30 items-center">
       <a href="/" className="font-bold text-[35px] text-white md:text-[25px]" >CoinPulse</a>
-      <div className="relative   ">
+      <nav className="relative flex gap-24 md:gap-10 ">
+
       <Notification/>
-      <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
+        <div className="relative">
+        <CiMenuBurger className={`${rotateBurger ? "animate-rotate180" : ""} text-[30px] mb-2 `} onClick={() => setRotateBurger(prev => !prev)}/>
       {rotateBurger ? (
         <ul className="flex flex-col gap-5 absolute text-white bg-[#222] border-[2px] border-white p-4 items-center justify-center  text-center rounded-lg  z-50 left-[-3em] botton-0">
         <a href="/">Home</a>
@@ -41,7 +43,9 @@ export default function NavBar() {
         )}
       </ul>
       ) : null}
-      </div>
-    </nav>
+        </div>
+      
+      </nav>
+    </header>
   );
 }

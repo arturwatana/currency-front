@@ -51,4 +51,5 @@ export interface IUserRepository {
     sendCurrencyRequest(name: string, to: string): Promise<CurrencyTypeRes | string>
     getLast15DaysFromInterests(): Promise<Last15DaysFromInterest[] | string>
     sendPeriodCurrentRequest(data: PeriodCurrencyPropsReq): Promise<any>
+    getUserIdByToken(): Promise<string>
 }

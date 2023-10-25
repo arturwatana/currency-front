@@ -112,7 +112,7 @@ if(currencyAlreadyInInterests){
   return (
     <main className="w-full h-full  min-h-screen relative flex  items-center  flex-col  bg-[#222] text-white overflow-x-hidden">
           <NavBar />
-    <section className="flex flex-col items-center relative w-full h-full z-20 min-h-screen ">
+    <section className="flex flex-col items-center relative w-full h-full z-20 min-h-screen md:justify-center ">
     <div className="flex flex-col gap-10 items-center justify-center min-h-[70vh] h-full md:h-[80vh]">
       <div className="flex flex-col gap-5 items-center justify-center  ">
         <h1 className="w-full text-center text-[22px] font-bold ">
